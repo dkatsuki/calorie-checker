@@ -14,6 +14,7 @@ gem "jbuilder"
 gem "redis", "~> 4.0"
 gem 'unicorn'
 gem 'slim'
+gem 'slim-rails'
 gem 'html2slim'
 gem "sassc"
 gem "sassc-rails"

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  get 'recipes/index'
   root 'pages#top'
-  get 'dishes/index'
-  get 'foodstuffs/index'
+  resources :dishes
+  resources :foodstuffs
+  
 end
