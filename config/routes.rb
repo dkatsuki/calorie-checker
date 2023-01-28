@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  get 'foodstuffs/index'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
   root 'pages#top'
+  get 'dishes/index'
+  get 'foodstuffs/index'
 end
