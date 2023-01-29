@@ -1,0 +1,101 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, input {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+html {
+	font-size: 16px;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	box-sizing : border-box;
+	font-family: Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, "Helvetica Neue", sans-serif;
+	line-height: 1.6;
+}
+h1 {
+	font-size: 1.4rem;
+	font-weight: bold;
+}
+h2 {
+	font-size: 1.25rem;
+	font-weight: bold;
+}
+h3 {
+	font-size: 1.15rem;
+	font-weight: bold;
+}
+ul {
+	list-style: none;
+}
+img {
+	height: 100%;
+	width: auto;
+}
+a {
+	text-decoration: none;
+	color: #0033cc;
+	outline: none;
+}
+table {
+	border-collapse: collapse;
+	/* border-collapse: separate; */
+	border-spacing: 0;
+}
+textarea {
+	font-size: 1.0rem;
+}
+input {
+	border: 1px solid  black;
+	padding-left: 4px;
+}
+input[type="submit"], input[type="button"] {
+	border-radius: 0;
+	-webkit-box-sizing: content-box;
+	-webkit-appearance: button;
+	appearance: button;
+	border: none;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+input[type="submit"]::-webkit-search-decoration,
+input[type="button"]::-webkit-search-decoration {
+	display: none;
+}
+input[type="submit"]::focus,
+input[type="button"]::focus {
+	outline-offset: -2px;
+}
+select {
+	-webkit-appearance: menulist-button;
+	border: 1px solid  black;
+}
+@media screen and (max-width: 767px) {
+	#root {
+		width: 100%;
+		overflow-x: hidden;
+		min-height: 100vh;
+	}
+}
