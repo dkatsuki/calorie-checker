@@ -1,3 +1,5 @@
-h1 食材一覧
+div.unko
+  h1 食材一覧
+= link_to "食材新規作成", '/foodstuffs/new'
 - @records.each do |record|
   = record.name

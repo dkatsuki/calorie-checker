@@ -9,4 +9,15 @@ Rails.application.config.assets.version = "1.0"
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-# Rails.application.config.assets.precompile += %w( admin.js admin.css )
+
+style_sheet_dir = Rails.root.to_s + "/app/assets/stylesheets"
+
+paths = Dir.glob('**/*', File::FNM_DOTMATCH, base: style_sheet_dir).map do |file|
+  file_path = File.join(style_sheet_dir, file)
+  next nil unless file_path.include?('.scss')
+  result = file_path.gsub(Regexp.new(style_sheet_dir), '').gsub(/\.scss/, '.css')
+  result.slice!(0)
+  result
+end.compact
+
+Rails.application.config.assets.precompile += ['*.js', '*.css', *paths]
