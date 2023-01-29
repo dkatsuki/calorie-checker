@@ -1,0 +1,35 @@
+h1
+  | 食材新規作成
+= render partial: 'partials/admin/error_messages', locals: {record: @record}
+= form_with model: @record, local: true, remote: false do |f|
+  div
+    div
+      = f.label '食材名'
+    div
+      = f.text_field :name
+  div
+    div
+      = f.label '100gあたりのカロリー'
+    div
+      = f.number_field :calorie_per_100_grams
+  div
+    div
+      = f.label '100gあたりの糖質'
+    div
+      = f.number_field :sugar
+  div
+    div
+      = f.label '100gあたりの炭水化物'
+    div
+      = f.number_field :carbohydrate
+  div
+    div
+      = f.label '100gあたりの脂質'
+    div
+      = f.number_field :fat
+  div
+    div
+      = f.label '100gあたりのタンパク質'
+    div
+      = f.number_field :protein
+  = f.submit "作成する"

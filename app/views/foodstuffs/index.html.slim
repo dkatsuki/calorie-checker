@@ -1,4 +1,3 @@
-h1
-  | Foodstuffs#index
-p
-  | Find me in app/views/foodstuffs/index.html.erb
+h1 食材一覧
+- @records.each do |record|
+  = record.name

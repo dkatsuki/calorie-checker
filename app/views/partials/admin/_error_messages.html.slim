@@ -1,0 +1,6 @@
+div
+  p = "エラーメッセージ"
+  - if record.errors.messages.present?
+    - record.errors.messages.each do |key, messages|
+      - messages.each do |message|
+        p = message
