@@ -5,6 +5,12 @@ $white: white;
 
 ////////////////////////////
 
+table {
+	td, th {
+		padding: 4px;
+	}
+}
+
 .debug {
 	background-color: pink;
 	border: 1px solid $black;
@@ -16,6 +22,7 @@ $white: white;
 		justify-content: space-between;
 
 		> div {
+			flex-grow: 1;
 			padding: 0 4px;
 		}
 	}
@@ -38,6 +45,10 @@ $white: white;
 			border: solid 2px $white;
 		}
 	}
+}
+
+.margin_0_auto {
+	margin: 0 auto;
 }
 
 .short-margin-bottom {

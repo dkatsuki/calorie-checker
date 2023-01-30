@@ -1,5 +1,29 @@
-div
-  h1 食材一覧
-= link_to "食材新規作成", '/foodstuffs/new'
-- @records.each do |record|
-  = record.name
+- each_page_stylesheet_link_tag("foodstuffs/index")
+div.width_80percent.margin_0_auto
+  div
+    h1 食材一覧
+  div
+    - flash.each do |message_type, message|
+      = message_type
+      = message
+  div
+    = link_to "食材新規作成", '/foodstuffs/new'
+  - if @records.blank?
+    p レコードはありません
+  - else
+    table
+      thead
+        tr
+          - @records.first.attributes.each do |k, v|
+            th
+              p = k
+          th
+            p 削除ボタン
+      tbody
+        - @records.each do |record|
+          tr
+            - record.attributes.each do |k, v|
+              td
+                p = v
+            td
+              = link_to '削除' , "/foodstuffs/#{record.id}", method: :delete
