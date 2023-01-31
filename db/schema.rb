@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_28_150036) do
     t.string "name", null: false
     t.jsonb "unit_list", default: "{}", null: false
     t.string "main_image_key"
-    t.integer "calorie_per_100_grams", null: false
+    t.integer "calorie", null: false
     t.integer "carbohydrate"
     t.integer "fat"
     t.integer "protein"
