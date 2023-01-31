@@ -1,6 +1,6 @@
+- if record.errors.messages.present?
 div
   p = "エラーメッセージ"
-  - if record.errors.messages.present?
-    - record.errors.messages.each do |key, messages|
-      - messages.each do |message|
-        p = message
+  - record.errors.messages.each do |key, messages|
+    - messages.each do |message|
+      p = "#{key}: #{message}"
