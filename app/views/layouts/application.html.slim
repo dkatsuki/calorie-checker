@@ -9,6 +9,7 @@ html
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = yield(:each_page_stylesheet_link_tag)
     = javascript_importmap_tags
+    = yield(:each_page_javascript_import)
     / = favicon_link_tag('favicon.ico')
   body
     div#root class="#{controller.controller_name} #{controller.action_name}" data-controller=controller.controller_name data-action=controller.action_name
