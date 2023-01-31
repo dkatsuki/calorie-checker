@@ -2,6 +2,7 @@
 div.width_80percent.margin_0_auto
   h1
     | 食材新規作成
+  = link_to "一覧に戻る", '/foodstuffs'
   = render partial: 'partials/admin/error_messages', locals: {record: @record}
   = form_with model: @record, local: true, remote: false do |f|
     div

@@ -2,10 +2,7 @@
 div.width_80percent.margin_0_auto
   div
     h1 食材一覧
-  div
-    - flash.each do |message_type, message|
-      = message_type
-      = message
+  = render partial: 'partials/admin/flash_messages', locals: {messages: flash&.[](:messages)}
   div
     = link_to "食材新規作成", '/foodstuffs/new'
   - if @records.blank?
@@ -26,4 +23,4 @@ div.width_80percent.margin_0_auto
               td
                 p = v
             td
-              = link_to '削除' , "/foodstuffs/#{record.id}", method: :delete
+              = link_to '削除', "/foodstuffs/#{record.id}", data: { turbo_method: :delete }
