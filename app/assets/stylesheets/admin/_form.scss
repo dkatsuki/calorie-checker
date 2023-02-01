@@ -28,6 +28,7 @@ form.admin_form {
   }
 
   .add_nested_record_button {
+    cursor: pointer;
     display:inline-block;
     background-color: black;
     padding: 0.2rem;
@@ -37,6 +38,7 @@ form.admin_form {
   }
 
   .remove_nested_record_button {
+    cursor: pointer;
     margin-left: 12px;
     display:inline-block;
     background-color: black;
