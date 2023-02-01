@@ -5,12 +5,26 @@ div.width_80percent.margin_0_auto
     | 食材新規作成
   = link_to "一覧に戻る", '/foodstuffs'
   = render partial: 'partials/admin/error_messages', locals: {record: @record}
-  = form_with model: @record, local: true, remote: false do |f|
+  = form_with model: @record, local: true, remote: false, class: 'admin_form' do |f|
     div
       div
         = f.label '食材名'
       div
         = f.text_field :name
+    div
+      div
+        = f.label '単位と重さ'
+      div.nested_form
+        = f.fields_for :unit_list do |unit|
+          div
+            div
+              = f.label '単位'
+              = unit.text_field :key, name: "foodstuff[unit_list][key]", placeholder: "例）1本、おおさじ1杯、など"
+            div
+              = f.label 'グラム'
+              = unit.text_field :value, name: "foodstuff[unit_list][value]", placeholder: "例）50, 80"
+        div.add_nested_record_button
+          p 単位追加
     div
       div
         = f.label '100gあたりのカロリー'
