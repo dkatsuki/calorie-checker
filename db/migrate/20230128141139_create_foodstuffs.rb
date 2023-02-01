@@ -4,11 +4,11 @@ class CreateFoodstuffs < ActiveRecord::Migration[7.0]
       t.string :name, null: false
       t.jsonb  :unit_list, null: false, default: '{}'
       t.string :main_image_key
-      t.integer :calorie, null: false
-      t.integer :carbohydrate
-      t.integer :fat
-      t.integer :protein
-      t.integer :sugar
+      t.float :calorie, null: false
+      t.float :carbohydrate
+      t.float :fat
+      t.float :protein
+      t.float :sugar
       t.timestamps
     end
   end

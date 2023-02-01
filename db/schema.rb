@@ -24,11 +24,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_28_150036) do
     t.string "name", null: false
     t.jsonb "unit_list", default: "{}", null: false
     t.string "main_image_key"
-    t.integer "calorie", null: false
-    t.integer "carbohydrate"
-    t.integer "fat"
-    t.integer "protein"
-    t.integer "sugar"
+    t.float "calorie", null: false
+    t.float "carbohydrate"
+    t.float "fat"
+    t.float "protein"
+    t.float "sugar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
