@@ -3,10 +3,12 @@ const onLoad = () => {
 
   const setInputValueToNameKey = (event) => {
     const delimiter = '[';
-    const splitedBaseName = event.target.name.split(delimiter);
+    const target = event.target.parentElement.parentElement.childNodes[1].querySelector('input');
+    console.log(target)
+    const splitedBaseName = target.name.split(delimiter);
     splitedBaseName[splitedBaseName.length - 1] = `${event.target.value}]`
     const newName = splitedBaseName.join(delimiter);
-    event.target.name = newName;
+    target.name = newName;
   };
 
   const getKeyValueCombiElements = () => {
@@ -15,11 +17,9 @@ const onLoad = () => {
 
   const setSetterFunctions = () => {
     getKeyValueCombiElements().forEach((parent) => {
-      parent.childNodes.forEach((child) => {
-        if (!child.onchange) {
-          child.onchange = setInputValueToNameKey;
-        }
-      })
+      if (!parent.childNodes[0].onchange) {
+        parent.childNodes[0].onchange = setInputValueToNameKey;
+      }
     })
   }
 
