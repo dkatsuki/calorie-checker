@@ -1,10 +1,12 @@
+
+
 const onLoad = () => {
   const nestedForm = document.querySelector('.nested_form')
 
   const setInputValueToNameKey = (event) => {
     const delimiter = '[';
-    const target = event.target.parentElement.parentElement.childNodes[1].querySelector('input');
-    console.log(target)
+    const wrapper = event.target.parentElement.parentElement;
+    const target = wrapper.childNodes[1].querySelector('input');
     const splitedBaseName = target.name.split(delimiter);
     splitedBaseName[splitedBaseName.length - 1] = `${event.target.value}]`
     const newName = splitedBaseName.join(delimiter);
@@ -44,13 +46,14 @@ const onLoad = () => {
     const baseElement = getKeyValueCombiElements()[0];
     const newElement = baseElement.cloneNode(true);
     const inputElements = newElement.querySelectorAll('input');
+    newElement.id = `${Date.now()}`;
     inputElements.forEach((element) => {
-      element.name = 'foodstuff[unit_list][]';
       element.id = `${element.id}_${Date.now()}`;
       element.value = '';
     })
 
     newElement.childNodes[1].appendChild(createRemoveButton());
+    newElement.dataset.order = nestedForm.childNodes.length;
     nestedForm.insertBefore(newElement, addNestedRecordButton);
     setSetterFunctions();
   }

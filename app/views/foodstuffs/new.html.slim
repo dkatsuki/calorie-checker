@@ -16,7 +16,7 @@ div.width_80percent.margin_0_auto
         = f.label '単位と重さ'
       div.nested_form
         = f.fields_for :unit_list do |unit|
-          div
+          div data-order="1"
             div
               = f.label '単位'
               input type="text" placeholder="例）1本、おおさじ1杯、など"
