@@ -39,4 +39,4 @@ div.width_80percent.margin_0_auto
         = f.label '100gあたりのタンパク質'
       div
         = f.number_field :protein, step: 0.01
-    = f.submit "作成する"
+    = f.submit controller.action_name == 'new' ? '作成する' : '更新する'

@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_28_150036) do
 
   create_table "foodstuffs", force: :cascade do |t|
     t.string "name", null: false
-    t.jsonb "unit_list", default: "{}", null: false
+    t.json "unit_list", default: {}, null: false
     t.string "main_image_key"
     t.float "calorie", null: false
     t.float "carbohydrate"

@@ -2,7 +2,7 @@ class CreateFoodstuffs < ActiveRecord::Migration[7.0]
   def change
     create_table :foodstuffs do |t|
       t.string :name, null: false
-      t.jsonb  :unit_list, null: false, default: '{}'
+      t.json  :unit_list, null: false, default: {}
       t.string :main_image_key
       t.float :calorie, null: false
       t.float :carbohydrate

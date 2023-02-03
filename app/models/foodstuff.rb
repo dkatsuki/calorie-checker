@@ -1,4 +1,6 @@
 class Foodstuff < ApplicationRecord
+  # attribute :unit_list, :json, default: {}
+
   @@japanese_column_names_list = {
     name: '名前',
     calorie: 'カロリー',
