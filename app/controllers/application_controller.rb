@@ -31,6 +31,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def edit
+    @record = self.model.find(params[:id])
+  end
+
   def create
     @record = self.model.new(self.strong_parameters)
 

@@ -1,0 +1,42 @@
+- each_page_stylesheet_link_tag("foodstuffs/form")
+- each_page_javascript_import_tag("foodstuffs/form")
+div.width_80percent.margin_0_auto
+  h1 = page_title
+  = link_to "一覧に戻る", '/foodstuffs'
+  = render partial: 'partials/admin/error_messages', locals: {record: @record}
+  = form_with model: record, local: true, remote: false, class: 'admin_form' do |f|
+    div
+      div
+        = f.label '食材名'
+      div
+        = f.text_field :name
+    div
+      div
+        = f.label '単位と重さ'
+      = render partial: 'foodstuffs/unit_list_form', locals: {record: record, form: f}
+    div
+      div
+        = f.label '100gあたりのカロリー'
+      div
+        = f.number_field :calorie, step: 0.01
+    div
+      div
+        = f.label '100gあたりの糖質'
+      div
+        = f.number_field :sugar, step: 0.01
+    div
+      div
+        = f.label '100gあたりの炭水化物'
+      div
+        = f.number_field :carbohydrate, step: 0.01
+    div
+      div
+        = f.label '100gあたりの脂質'
+      div
+        = f.number_field :fat, step: 0.01
+    div
+      div
+        = f.label '100gあたりのタンパク質'
+      div
+        = f.number_field :protein, step: 0.01
+    = f.submit "作成する"

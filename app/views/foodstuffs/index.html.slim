@@ -16,6 +16,8 @@ div.width_80percent.margin_0_auto
               p = k
           th
             p 削除ボタン
+          th
+            p 編集ボタン
       tbody
         - @records.each do |record|
           tr
@@ -24,3 +26,5 @@ div.width_80percent.margin_0_auto
                 p = v
             td
               = link_to '削除', "/foodstuffs/#{record.id}", data: { turbo_method: :delete }
+            td
+              = link_to '編集', "/foodstuffs/#{record.id}/edit"
