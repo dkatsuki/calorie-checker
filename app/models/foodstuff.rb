@@ -1,4 +1,17 @@
 class Foodstuff < ApplicationRecord
+  @@japanese_column_names_list = {
+    name: '名前',
+    calorie: 'カロリー',
+    carbohydrate: '炭水化物',
+    fat: '脂質',
+    protein: 'タンパク質',
+    sugar: '糖質',
+  }
+
+  def self.japanese_column_names_list
+    @@japanese_column_names_list
+  end
+
   # 栄養素は100gあたり
   validates :name, presence: {message: '食材名の入力は必須です。'}
   validates :name, uniqueness: {message: '既にこの食材名は登録されています。'}
