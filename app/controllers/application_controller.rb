@@ -21,6 +21,20 @@ class ApplicationController < ActionController::Base
     @record = self.model.new
   end
 
+  def create
+    @record = self.model.new(self.strong_parameters)
+
+    respond_to do |format|
+      if @record.save
+        format.html { redirect_to action: :index, flash: {messages: ["#{@record.class.name}のレコード作成に成功しました。"] }}
+        format.json { render :show, status: :created, location: @record }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @record.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def show
     flash.now[:messages] = params[:flash]&.[](:messages)
     @record = self.model.find(params[:id])
@@ -35,12 +49,12 @@ class ApplicationController < ActionController::Base
     @record = self.model.find(params[:id])
   end
 
-  def create
-    @record = self.model.new(self.strong_parameters)
+  def update
+    @record = self.model.find(params[:id])
 
     respond_to do |format|
-      if @record.save
-        format.html { redirect_to action: :index, flash: {messages: ["#{@record.class.name}のレコード作成に成功しました。"] }}
+      if @record.update(self.strong_parameters)
+        format.html { redirect_to action: :index, flash: {messages: ["#{@record.class.name}のレコードの更新に成功しました。"] }}
         format.json { render :show, status: :created, location: @record }
       else
         format.html { render :new, status: :unprocessable_entity }

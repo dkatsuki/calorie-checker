@@ -25,6 +25,6 @@ div.width_80percent.margin_0_auto
               td
                 p = v
             td
-              = link_to '削除', "/foodstuffs/#{record.id}", data: { turbo_method: :delete }
+              = link_to '削除', "/foodstuffs/#{record.id}", data: { turbo_method: :delete, turbo_confirm: 'Are you sure to delete?' }
             td
               = link_to '編集', "/foodstuffs/#{record.id}/edit"
