@@ -3,4 +3,8 @@ Rails.application.routes.draw do
   resources :dishes
   resources :foodstuffs
   resources :recipes
+
+  namespace :admin do
+    resources :foodstuffs
+  end
 end
