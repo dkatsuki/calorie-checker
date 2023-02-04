@@ -1,6 +1,7 @@
+- each_page_stylesheet_link_tag("admin/error_messages")
 - if record.errors.messages.present?
-  div.
+  div.error_messages_container
     p = "エラーメッセージ"
     - record.errors.messages.each do |key, messages|
       - messages.each do |message|
-        p = "#{key}: #{message}"
+        p.red = "#{key}: #{message}"
