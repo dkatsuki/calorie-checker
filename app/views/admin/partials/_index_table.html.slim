@@ -3,6 +3,8 @@ div.width_80percent.margin_0_auto
     h1 = "#{controller.model.japanese_name}一覧"
   = render partial: 'admin/partials/flash_messages', locals: {messages: flash&.[](:messages)}
   div
+    = link_to "管理画面トップ", "/admin"
+  div
     = link_to "#{controller.model.japanese_name}新規作成", "/admin/#{controller.controller_name}/new"
   - if records.blank?
     p レコードはありません
