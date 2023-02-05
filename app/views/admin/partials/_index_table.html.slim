@@ -1,0 +1,29 @@
+div.width_80percent.margin_0_auto
+  div
+    h1 = "#{controller.model.japanese_name}一覧"
+  = render partial: 'admin/partials/flash_messages', locals: {messages: flash&.[](:messages)}
+  div
+    = link_to "#{controller.model.japanese_name}新規作成", "/admin/#{controller.controller_name}/new"
+  - if records.blank?
+    p レコードはありません
+  - else
+    table
+      thead
+        tr
+          - records.first.attributes.each do |k, v|
+            th
+              p = k
+          th
+            p 削除ボタン
+          th
+            p 編集ボタン
+      tbody
+        - records.each do |record|
+          tr
+            - record.attributes.each do |k, v|
+              td
+                p = record.send(k)
+            td
+              = link_to '削除', "/admin/#{controller.controller_name}/#{record.id}", data: { turbo_method: :delete, turbo_confirm: 'Are you sure to delete?' }
+            td
+              = link_to '編集', "/admin/#{controller.controller_name}/#{record.id}/edit"
