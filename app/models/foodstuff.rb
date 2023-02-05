@@ -14,6 +14,9 @@ class Foodstuff < ApplicationRecord
     @@japanese_column_names_list
   end
 
+  has_many :recipes
+  has_many :dishes, through: :recipes, source: :dish
+
   # 栄養素は100gあたり
   validates :name, presence: {message: '食材名の入力は必須です。'}
   validates :name, uniqueness: {message: '既にこの食材名は登録されています。'}
@@ -22,4 +25,20 @@ class Foodstuff < ApplicationRecord
   validates :fat, presence: {message: '100gあたりの脂質は入力必須です'}
   validates :protein, presence: {message: '100gあたりのタンパク質は入力必須です'}
   validates :sugar, presence: {message: '100gあたりの糖質は入力必須です'}
+
+  after_save :create_dish
+
+  def pure?
+    self.is_pure
+  end
+
+  def get_genre
+    self.pure? ? 'pure_foodstuff' : 'ready_made'
+  end
+
+  def create_dish
+    dish = self.dishes.build(name: self.name, genre: self.get_genre)
+    dish.recipes.build(foodstuff_id: self.id)
+    dish.save
+  end
 end
