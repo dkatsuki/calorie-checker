@@ -38,6 +38,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_28_150036) do
   create_table "recipes", force: :cascade do |t|
     t.bigint "foodstuff_id"
     t.bigint "dish_id"
+    t.float "gram_weight", null: false
+    t.string "unit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["dish_id"], name: "index_recipes_on_dish_id"
