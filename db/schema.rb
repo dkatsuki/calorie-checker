@@ -16,12 +16,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_28_150036) do
 
   create_table "dishes", force: :cascade do |t|
     t.string "name", null: false
+    t.string "type", default: "0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "foodstuffs", force: :cascade do |t|
     t.string "name", null: false
+    t.string "is_pure", default: "t", null: false
     t.json "unit_list", default: {}, null: false
     t.string "main_image_key"
     t.float "calorie", null: false
