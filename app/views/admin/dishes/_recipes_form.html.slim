@@ -1,0 +1,20 @@
+- each_page_stylesheet_link_tag("admin/dishes/recipes_form")
+div.nested_form
+  = form.fields_for :recipes do |child|
+    div.display_flex.justify-content_flex-start.gap_1_rem
+      div
+        div
+          = child.label 'グラム重量'
+        div
+          = child.number_field :gram_weight, value: nil, placeholder: "例）50, 80", step: 0.01
+      div
+        p or
+      div
+        div
+          = child.label '単位'
+        div
+          = child.text_field :unit, value: nil, placeholder: "例）50, 80"
+      div
+        = child.select :user_id, [['太郎', 1], ['二郎', 2]], { selected: 1 }
+  div.add_nested_record_button
+    p 単位追加

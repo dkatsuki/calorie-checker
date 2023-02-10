@@ -1,0 +1,42 @@
+- each_page_stylesheet_link_tag("admin/form")
+- each_page_javascript_import_tag("dishes/form")
+div.width_80percent.margin_0_auto
+  h1 = page_title
+  = link_to "一覧に戻る", '/admin/dishes'
+  = render partial: 'admin/partials/error_messages', locals: {record: @record}
+  = form_with url: form_url, scope: :dish, local: true, method: form_method, class: 'admin_form' do |f|
+    div
+      div
+        = f.label '料理名'
+      div
+        = f.text_field :name, value: record.name
+    div
+      div
+        = f.label 'レシピ'
+      = render partial: 'admin/dishes/recipes_form', locals: {record: record, form: f}
+    / div
+    /   div
+    /     = f.label '100gあたりのカロリー'
+    /   div
+    /     = f.number_field :calorie, value: record.calorie, step: 0.01
+    / div
+    /   div
+    /     = f.label '100gあたりの糖質'
+    /   div
+    /     = f.number_field :sugar, value: record.sugar, step: 0.01
+    / div
+    /   div
+    /     = f.label '100gあたりの炭水化物'
+    /   div
+    /     = f.number_field :carbohydrate, value: record.carbohydrate, step: 0.01
+    / div
+    /   div
+    /     = f.label '100gあたりの脂質'
+    /   div
+    /     = f.number_field :fat, value: record.fat, step: 0.01
+    / div
+    /   div
+    /     = f.label '100gあたりのタンパク質'
+    /   div
+    /     = f.number_field :protein, value: record.protein, step: 0.01
+    = f.submit controller.action_name == 'new' ? '作成する' : '更新する'
