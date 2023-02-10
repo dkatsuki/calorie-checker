@@ -1,5 +1,21 @@
 class Foodstuff < ApplicationRecord
-  # attribute :unit_list, :json, default: {}
+  enum category: {
+    'その他' => 0,
+    '既製品' => 1,
+    '穀類' => 2,
+    '野菜' => 3,
+    '果物' => 4,
+    'いも' => 5,
+    '甘味' => 6,
+    '豆/種' => 7,
+    'きのこ' => 8,
+    '海藻' => 9,
+    '魚介' => 10,
+    '肉' => 11,
+    '乳製品/卵' => 12,
+    '調味料/油' => 13,
+    '飲料/酒' => 14,
+	}
 
   @@japanese_name = '食材'
   @@japanese_column_names_list = {

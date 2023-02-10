@@ -23,6 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_28_150036) do
 
   create_table "foodstuffs", force: :cascade do |t|
     t.string "name", null: false
+    t.integer "category", default: 0, null: false
     t.boolean "is_pure", default: true, null: false
     t.json "unit_list", default: {}, null: false
     t.string "main_image_key"
