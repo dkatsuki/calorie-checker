@@ -4,7 +4,7 @@ class Dish < ApplicationRecord
 	}
 
   has_many :recipes
-  has_many :food_stuffs, through: :recipesre
+  has_many :food_stuffs, through: :recipes
 
 	@@japanese_name = '料理'
 

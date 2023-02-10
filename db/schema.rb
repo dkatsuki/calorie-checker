@@ -23,14 +23,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_28_150036) do
 
   create_table "foodstuffs", force: :cascade do |t|
     t.string "name", null: false
-    t.string "is_pure", default: "t", null: false
+    t.boolean "is_pure", default: true, null: false
     t.json "unit_list", default: {}, null: false
     t.string "main_image_key"
     t.float "calorie", null: false
-    t.float "carbohydrate"
-    t.float "fat"
-    t.float "protein"
-    t.float "sugar"
+    t.float "carbohydrate", null: false
+    t.float "fat", null: false
+    t.float "protein", null: false
+    t.float "sugar", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
