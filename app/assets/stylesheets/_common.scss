@@ -1,9 +1,4 @@
-$main_color: #ff5d00;
-$lightGray: rgb(245, 245, 245);
-$black: black;
-$white: white;
-
-////////////////////////////
+@import 'colors';
 
 table {
 	td, th {
@@ -29,7 +24,6 @@ table {
 
 	> div:first-child {
 		> div {
-			background-color: $main_color;
 			background-color: black;
 			border: solid 2px $white;
 
@@ -41,7 +35,6 @@ table {
 
 	> div {
 		> div {
-			background-color: $lightGray;
 			border: solid 2px $white;
 		}
 	}
@@ -150,10 +143,6 @@ div.button {
 
 .background-color_white {
 	background-color: $white;
-}
-
-.background-color_main {
-	background-color: $main_color;
 }
 
 p.font-size_120rem {

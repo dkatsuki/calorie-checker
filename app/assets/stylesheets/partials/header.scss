@@ -1,0 +1,15 @@
+div.header {
+  height: 48px;
+  box-shadow: 0px 1px 10px gray;
+  display: flex;
+  align-items: center;
+  padding: 24px;
+
+  > div:first-child {
+    display: flex;
+    align-items: center;
+    img {
+      height: 28px;
+    }
+  }
+}
