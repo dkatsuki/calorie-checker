@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   def index
     flash.now[:messages] = params[:flash]&.[](:messages)
     @records = self.model.search(params)
+    @model = self.model
 
     respond_to do |format|
       format.html

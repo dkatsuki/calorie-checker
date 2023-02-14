@@ -2,7 +2,7 @@ class Dish < ApplicationRecord
 	attribute :unit, :string, default: '1人前'
 
 	enum genre: {
-		dish: 0, pure_foodstuff: 1, ready_made: 2,
+		"料理": 0, "食材": 1, "既製品": 2,
 	}
 
   has_many :recipes
@@ -16,7 +16,29 @@ class Dish < ApplicationRecord
 	end
 
 	def self.search(params)
-		self.where('name LIKE ?', "%#{sanitize_sql_like(params[:name].to_s)}%")
+		query = self.limit(params[:limit] || 100)
+
+		if params[:name].present?
+			query = query.where('name LIKE ?', "%#{sanitize_sql_like(params[:name].to_s)}%")
+		end
+
+		sort_options = []
+
+		if params[:sort].is_a? Array
+			sort_options = params[:sort]
+		elsif params[:sort]&.[](:key).present? && params[:sort]&.[](:order).present?
+			sort_options = [params[:sort]]
+		end
+
+		sort_options << {key: :id, order: :asc} if sort_options.present?
+
+		sort_options.each do |sort_option|
+			key = sort_option[:key].to_sym
+			order = sort_option[:order].to_sym
+			query = query.order(key => order)
+		end
+
+		query
 	end
 
 	def set_data_from_recipes

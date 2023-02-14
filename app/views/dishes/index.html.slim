@@ -1,4 +1,28 @@
-h1
-  | Dishes#index
-p
-  | Find me in app/views/dishes/index.html.erb
+sass:
+  .search_form
+    border-bottom: solid 1px black;
+= render 'partials/header'
+div#top_wrapper
+  = form_with url: '/dishes', method: :get, local: true, class: 'search_form' do |f|
+    div.display_flex.justify-content_flex-start
+      = f.text_field :name, value: (params[:name]), placeholder: '食材や料理の名前で検索'
+      = f.submit '検索'
+    div.display_flex
+      div.display_flex.justify-content_flex-start
+        - @model.genres.keys.each do |genre|
+          div
+            = f.label genre
+            = check_box_tag("genre[]", genre, {checked: (params[:genre].present? ? params[:genre].include?(genre) : true)})
+      div
+        = f.select "sort[key]", {'カロリー' => :calorie, 'タンパク質' => :protein, '糖質' => :sugar, '脂質' => :fat}
+        = f.select "sort[order]", {'高い順' => :desc, '低い順' => :asc}
+  - @records.each do |record|
+    div.大枠
+      div.画像枠
+        img.画像
+        img.矢印画像
+      div.説明枠
+        div.カロリー枠
+          p = "#{record.calorie}kcal"
+        div.料理名
+          p = record.name
