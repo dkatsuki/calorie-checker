@@ -3,13 +3,23 @@
 div.width_80percent.margin_0_auto
   h1 = page_title
   = link_to "一覧に戻る", '/admin/foodstuffs'
-  = render partial: 'admin/partials/error_messages', locals: {record: @record}
+  = render partial: 'admin/partials/error_messages', locals: {record: record}
   = form_with url: form_url, scope: :foodstuff, local: true, method: form_method, class: 'admin_form' do |f|
     div
       div
         = f.label '食材名'
       div
         = f.text_field :name, value: record.name
+    div
+      div
+        = f.label '純粋な食材？既製品？'
+      div
+        div
+          = f.label :is_pure, '食材', value: true
+          = f.radio_button :is_pure, true, checked: record.is_pure
+        div
+          = f.label :is_pure, '既製品', value: false
+          = f.radio_button :is_pure, false, checked: !record.is_pure
     div
       div
         = f.label '単位と重さ'

@@ -6,4 +6,5 @@ class Recipe < ApplicationRecord
   end
 
   belongs_to :dish
+  belongs_to :foodstuff
 end

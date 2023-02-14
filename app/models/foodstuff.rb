@@ -27,6 +27,12 @@ class Foodstuff < ApplicationRecord
     sugar: '糖質',
   }
 
+  after_initialize do
+    self.unit_list.each do |k,v|
+      self.unit_list[k] = v.to_i
+    end
+  end
+
   def self.japanese_column_names_list
     @@japanese_column_names_list
   end
@@ -47,7 +53,7 @@ class Foodstuff < ApplicationRecord
   validates :protein, presence: {message: '100gあたりのタンパク質は入力必須です'}
   validates :sugar, presence: {message: '100gあたりの糖質は入力必須です'}
 
-  after_save :create_dish
+  after_save :create_or_update_dish
 
   def pure?
     self.is_pure
@@ -57,9 +63,45 @@ class Foodstuff < ApplicationRecord
     self.pure? ? 'pure_foodstuff' : 'ready_made'
   end
 
-  def create_dish
-    dish = self.dishes.build(name: self.name, genre: self.get_genre)
-    dish.recipes.build(foodstuff_id: self.id)
+  def get_main_unit
+    self.unit_list.first.first
+  end
+
+  def create_or_update_dish
+    unit = self.get_main_unit
+    dish_attributes = {
+      name: self.name,
+      genre: self.get_genre,
+      unit: unit
+    }
+    dish = self.get_association_class(:dishes).find_or_initialize_by(dish_attributes)
+    dish.recipes.build(foodstuff_id: self.id, unit: unit)
     dish.save
+  end
+
+  def get_nutrition_by(nutrition_name, gram_or_unit)
+    nutrition_name = nutrition_name.to_s
+    gram = gram_or_unit.is_a?(Float) ? gram_or_unit : self.unit_list[gram_or_unit]
+    self.send(nutrition_name) * (gram / 100.0)
+  end
+
+  def get_calorie_by(gram_or_unit)
+    self.get_nutrition_by(:calorie, gram_or_unit)
+  end
+
+  def get_carbohydrate_by(gram_or_unit)
+    self.get_nutrition_by(:carbohydrate, gram_or_unit)
+  end
+
+  def get_fat_by(gram_or_unit)
+    self.get_nutrition_by(:fat, gram_or_unit)
+  end
+
+  def get_protein_by(gram_or_unit)
+    self.get_nutrition_by(:protein, gram_or_unit)
+  end
+
+  def get_sugar_by(gram_or_unit)
+    self.get_nutrition_by(:sugar, gram_or_unit)
   end
 end

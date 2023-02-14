@@ -3,6 +3,13 @@ class CreateDishes < ActiveRecord::Migration[7.0]
     create_table :dishes do |t|
       t.string :name, null: false
       t.integer :genre, null: false, default: 0
+      t.string :main_image_key
+      t.string :unit, null: false
+      t.float :calorie, null: false
+      t.float :carbohydrate, null: false
+      t.float :fat, null: false
+      t.float :protein, null: false
+      t.float :sugar, null: false
       t.timestamps
     end
   end
