@@ -1,3 +1,16 @@
+javascript:
+  window.addEventListener('turbo:load', () => {
+    const submit = () => { document.querySelector('.search_form input[type="submit"]').click() }
+
+    const genreCheckBoxes = document.querySelectorAll('.search_form input[name="genre[]"]');
+    genreCheckBoxes.forEach(element => element.onchange = submit )
+
+    const sortKeySelectBox = document.querySelector('.search_form select[name="sort[key]"]');
+    sortKeySelectBox.onchange = submit;
+
+    const sortOrderSelectBox = document.querySelector('.search_form select[name="sort[order]"]');
+    sortOrderSelectBox.onchange = submit;
+  })
 sass:
   .search_form
     border-bottom: solid 1px black;
@@ -12,7 +25,7 @@ div#top_wrapper
         - @model.genres.keys.each do |genre|
           div
             = f.label genre
-            = check_box_tag("genre[]", genre, (params[:genre].present? ? params[:genre].include?(genre) : true))
+            = check_box_tag("genre[]", genre, (params[:genre].present? ? params[:genre].include?(genre) : true), {class: 'うんこ'})
       div
         = f.select "sort[key]", @model.nutrition_name_list.invert, {selected: params&.[](:sort)&.[](:key)}
         = f.select "sort[order]", {'高い順' => :desc, '低い順' => :asc}, {selected: params&.[](:sort)&.[](:order)}
