@@ -18,13 +18,12 @@ class Foodstuff < ApplicationRecord
 	}
 
   @@japanese_name = '食材'
-  @@japanese_column_names_list = {
-    name: '名前',
+  @@nutrition_name_list = {
     calorie: 'カロリー',
-    carbohydrate: '炭水化物',
-    fat: '脂質',
-    protein: 'タンパク質',
     sugar: '糖質',
+    protein: 'タンパク質',
+    fat: '脂質',
+    carbohydrate: '炭水化物',
   }
 
   after_initialize do
@@ -33,8 +32,8 @@ class Foodstuff < ApplicationRecord
     end
   end
 
-  def self.japanese_column_names_list
-    @@japanese_column_names_list
+  def self.nutrition_name_list
+    @@nutrition_name_list
   end
 
   def self.japanese_name

@@ -5,11 +5,15 @@ class ApplicationRecord < ActiveRecord::Base
     self.all
   end
 
-  def get_association_class(association_name)
-    association_reflection = self.class.reflect_on_all_associations.find do |association_reflection|
+  def self.get_association_class(association_name)
+    association_reflection = self.reflect_on_all_associations.find do |association_reflection|
       association_reflection.name == association_name
     end
 
     association_reflection&.plural_name.classify.safe_constantize
+  end
+
+  def get_association_class(association_name)
+    super(association_name)
   end
 end

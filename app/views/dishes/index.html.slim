@@ -12,10 +12,10 @@ div#top_wrapper
         - @model.genres.keys.each do |genre|
           div
             = f.label genre
-            = check_box_tag("genre[]", genre, {checked: (params[:genre].present? ? params[:genre].include?(genre) : true)})
+            = check_box_tag("genre[]", genre, (params[:genre].present? ? params[:genre].include?(genre) : true))
       div
-        = f.select "sort[key]", {'カロリー' => :calorie, 'タンパク質' => :protein, '糖質' => :sugar, '脂質' => :fat}
-        = f.select "sort[order]", {'高い順' => :desc, '低い順' => :asc}
+        = f.select "sort[key]", @model.nutrition_name_list.invert, {selected: params&.[](:sort)&.[](:key)}
+        = f.select "sort[order]", {'高い順' => :desc, '低い順' => :asc}, {selected: params&.[](:sort)&.[](:order)}
   - @records.each do |record|
     div.大枠
       div.画像枠

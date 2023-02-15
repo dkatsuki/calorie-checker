@@ -15,6 +15,10 @@ class Dish < ApplicationRecord
 		@@japanese_name
 	end
 
+  def self.nutrition_name_list
+    self.get_association_class(:foodstuffs).nutrition_name_list
+  end
+
 	def self.search(params)
 		query = self.limit(params[:limit] || 100)
 
