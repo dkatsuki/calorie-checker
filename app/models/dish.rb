@@ -61,6 +61,10 @@ class Dish < ApplicationRecord
 		end
 	end
 
+	def calorie
+		self.read_attribute(:calorie).round(1)
+	end
+
 	def image_source
 		self.main_image_key
 	end

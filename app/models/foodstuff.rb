@@ -59,7 +59,7 @@ class Foodstuff < ApplicationRecord
   end
 
   def get_genre
-    self.pure? ? 'pure_foodstuff' : 'ready_made'
+    self.pure? ? '食材' : '既製品'
   end
 
   def get_main_unit

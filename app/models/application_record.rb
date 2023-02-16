@@ -14,6 +14,6 @@ class ApplicationRecord < ActiveRecord::Base
   end
 
   def get_association_class(association_name)
-    super(association_name)
+    self.class.get_association_class(association_name)
   end
 end

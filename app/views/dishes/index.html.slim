@@ -12,10 +12,40 @@ javascript:
     sortOrderSelectBox.onchange = submit;
   })
 sass:
-  .search_form
-    border-bottom: solid 1px black;
+  .dishes_index
+    .search_form
+      border-bottom: solid 1px black;
+    .records_container
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px 0;
+      margin-top: 12px;
+      justify-content: space-between;
+      .dish_thumbnail_box
+        cursor: pointer;
+        width: 23%;
+        p, a
+          color: black;
+        .thumbnail_image_box
+          height: 110px;
+          border: solid 1px LightGray;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        > div:last-child
+          > div
+            margin: 0.1rem 0;
+            display: flex;
+            align-items: center;
+          > div:first-child > p
+              color: black;
+              font-size: 0.9rem;
+              color: gray;
+          > div:last-child > p
+            font-weight: bold;
 = render 'partials/header'
-div#top_wrapper
+div#top_wrapper.dishes_index
   = form_with url: '/dishes', method: :get, local: true, class: 'search_form' do |f|
     div.display_flex.justify-content_flex-start
       = f.text_field :name, value: (params[:name]), placeholder: '食材や料理の名前で検索'
@@ -29,13 +59,13 @@ div#top_wrapper
       div
         = f.select "sort[key]", @model.nutrition_name_list.invert, {selected: params&.[](:sort)&.[](:key)}
         = f.select "sort[order]", {'高い順' => :desc, '低い順' => :asc}, {selected: params&.[](:sort)&.[](:order)}
-  - @records.each do |record|
-    div.大枠
-      div.画像枠
-        img.画像
-        img.矢印画像
-      div.説明枠
-        div.カロリー枠
-          p = "#{record.calorie}kcal"
-        div.料理名
-          p = record.name
+  div.records_container
+    - @records.each do |record|
+      a.dish_thumbnail_box href="https://example.com" target="_blank"
+        div.thumbnail_image_box
+          p No Image
+        div
+          div.カロリー枠
+            p = "#{record.calorie}kcal"
+          div.料理名
+            p = record.name
