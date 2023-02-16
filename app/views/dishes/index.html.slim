@@ -1,6 +1,6 @@
 javascript:
   window.addEventListener('turbo:load', () => {
-    const submit = () => { document.querySelector('.search_form input[type="submit"]').click() }
+    const submit = () => { document.querySelector('.search_form').submit() }
 
     const genreCheckBoxes = document.querySelectorAll('.search_form input[name="genre[]"]');
     genreCheckBoxes.forEach(element => element.onchange = submit )
