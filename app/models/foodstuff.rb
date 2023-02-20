@@ -1,4 +1,20 @@
 class Foodstuff < ApplicationRecord
+	include ImageAttachment
+
+  has_many :recipes
+  has_many :dishes, through: :recipes, source: :dish
+
+  # 栄養素は100gあたり
+  validates :name, presence: {message: '食材名の入力は必須です。'}
+  validates :name, uniqueness: {message: '既にこの食材名は登録されています。'}
+  validates :calorie, presence: {message: '100gあたりのカロリーは入力必須です'}
+  validates :carbohydrate, presence: {message: '100gあたりの炭水化物は入力必須です'}
+  validates :fat, presence: {message: '100gあたりの脂質は入力必須です'}
+  validates :protein, presence: {message: '100gあたりのタンパク質は入力必須です'}
+  validates :sugar, presence: {message: '100gあたりの糖質は入力必須です'}
+
+  after_save :create_or_update_dish
+
   enum category: {
     'その他' => 0,
     '既製品' => 1,
@@ -40,20 +56,6 @@ class Foodstuff < ApplicationRecord
     @@japanese_name
   end
 
-  has_many :recipes
-  has_many :dishes, through: :recipes, source: :dish
-
-  # 栄養素は100gあたり
-  validates :name, presence: {message: '食材名の入力は必須です。'}
-  validates :name, uniqueness: {message: '既にこの食材名は登録されています。'}
-  validates :calorie, presence: {message: '100gあたりのカロリーは入力必須です'}
-  validates :carbohydrate, presence: {message: '100gあたりの炭水化物は入力必須です'}
-  validates :fat, presence: {message: '100gあたりの脂質は入力必須です'}
-  validates :protein, presence: {message: '100gあたりのタンパク質は入力必須です'}
-  validates :sugar, presence: {message: '100gあたりの糖質は入力必須です'}
-
-  after_save :create_or_update_dish
-
   def pure?
     self.is_pure
   end
@@ -79,28 +81,19 @@ class Foodstuff < ApplicationRecord
   end
 
   def get_nutrition_by(nutrition_name, gram_or_unit)
+    return nil if self.send(nutrition_name).blank?
     nutrition_name = nutrition_name.to_s
     gram = gram_or_unit.is_a?(Float) ? gram_or_unit : self.unit_list[gram_or_unit]
     self.send(nutrition_name) * (gram / 100.0)
   end
 
-  def get_calorie_by(gram_or_unit)
-    self.get_nutrition_by(:calorie, gram_or_unit)
-  end
+  @@nutrition_name_list.keys.each do |nutrition_name|
+    define_method("get_#{nutrition_name}_by") do |gram_or_unit|
+      self.get_nutrition_by(nutrition_name, gram_or_unit)
+    end
 
-  def get_carbohydrate_by(gram_or_unit)
-    self.get_nutrition_by(:carbohydrate, gram_or_unit)
-  end
-
-  def get_fat_by(gram_or_unit)
-    self.get_nutrition_by(:fat, gram_or_unit)
-  end
-
-  def get_protein_by(gram_or_unit)
-    self.get_nutrition_by(:protein, gram_or_unit)
-  end
-
-  def get_sugar_by(gram_or_unit)
-    self.get_nutrition_by(:sugar, gram_or_unit)
+    define_method("#{nutrition_name}=") do |amount|
+      self.write_attribute(nutrition_name, amount&.round(2))
+    end
   end
 end

@@ -47,6 +47,7 @@ sass:
 = render 'partials/header'
 div#top_wrapper.dishes_index
   = form_with url: '/dishes', method: :get, local: true, class: 'search_form' do |f|
+    = f.hidden_field :limit, value: 4
     div.display_flex.justify-content_flex-start
       = f.text_field :name, value: (params[:name]), placeholder: '食材や料理の名前で検索'
       = f.submit '検索'
@@ -69,3 +70,4 @@ div#top_wrapper.dishes_index
             p = "#{record.calorie}kcal"
           div.料理名
             p = record.name
+    div.pagination

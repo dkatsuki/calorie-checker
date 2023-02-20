@@ -1,4 +1,6 @@
 class Dish < ApplicationRecord
+	include ImageAttachment
+
 	attribute :unit, :string, default: '1人前'
 
 	enum genre: {
@@ -20,10 +22,15 @@ class Dish < ApplicationRecord
   end
 
 	def self.search(params)
-		query = self.limit(params[:limit] || 100)
+		limit = params[:limit].present? ? params[:limit].to_i : 100
+		query = self.limit(limit)
 
 		if params[:name].present?
 			query = query.where('name LIKE ?', "%#{sanitize_sql_like(params[:name].to_s)}%")
+		end
+
+		if params[:genre].present?
+			query = query.where(genre: params[:genre])
 		end
 
 		sort_options = []
@@ -40,6 +47,11 @@ class Dish < ApplicationRecord
 			key = sort_option[:key].to_sym
 			order = sort_option[:order].to_sym
 			query = query.order(key => order)
+		end
+
+		if params[:page].present?
+			page = params[:page].to_i
+			query = query.offset(limit * (page - 1)) if page != 0
 		end
 
 		query
@@ -61,11 +73,17 @@ class Dish < ApplicationRecord
 		end
 	end
 
-	def calorie
-		self.read_attribute(:calorie).round(1)
-	end
-
 	def image_source
 		self.main_image_key
 	end
+
+	self.nutrition_name_list.keys.each do |nutrition_name|
+    # define_method("get_#{nutrition_name}_by") do |gram_or_unit|
+    #   self.get_nutrition_by(nutrition_name, gram_or_unit)
+    # end
+
+    define_method("#{nutrition_name}=") do |amount|
+      self.write_attribute(nutrition_name, amount&.round(2))
+    end
+  end
 end
