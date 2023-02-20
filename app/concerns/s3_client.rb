@@ -14,7 +14,6 @@ class S3Client
 			region: 'ap-northeast-1',
 			access_key_id: config[:access_key_id],
 			secret_access_key: config[:secret_access_key],
-      http_wire_trace: true,
 		)
 
 		@next_object_list = nil
