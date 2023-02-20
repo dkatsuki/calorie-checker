@@ -77,13 +77,20 @@ class Dish < ApplicationRecord
 		self.main_image_key
 	end
 
+	def name=(value)
+		self.ruby = value if self.ruby.blank?
+		self.write_attribute(:name, value)
+	end
+
 	self.nutrition_name_list.keys.each do |nutrition_name|
     # define_method("get_#{nutrition_name}_by") do |gram_or_unit|
     #   self.get_nutrition_by(nutrition_name, gram_or_unit)
     # end
 
     define_method("#{nutrition_name}=") do |amount|
-      self.write_attribute(nutrition_name, amount&.round(2))
+			if amount.present?
+				self.write_attribute(nutrition_name, amount.to_i.round(2))
+			end
     end
   end
 end

@@ -56,6 +56,11 @@ class Foodstuff < ApplicationRecord
     @@japanese_name
   end
 
+  def name=(value)
+		self.ruby = value if self.ruby.blank?
+		self.write_attribute(:name, value)
+	end
+
   def pure?
     self.is_pure
   end
@@ -93,7 +98,9 @@ class Foodstuff < ApplicationRecord
     end
 
     define_method("#{nutrition_name}=") do |amount|
-      self.write_attribute(nutrition_name, amount&.round(2))
+      if amount.present?
+        self.write_attribute(nutrition_name, amount.to_i.round(2))
+      end
     end
   end
 end

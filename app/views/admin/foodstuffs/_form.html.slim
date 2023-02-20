@@ -4,12 +4,22 @@ div.width_80percent.margin_0_auto
   h1 = page_title
   = link_to "一覧に戻る", '/admin/foodstuffs'
   = render partial: 'admin/partials/error_messages', locals: {record: record}
-  = form_with url: form_url, scope: :foodstuff, local: true, method: form_method, class: 'admin_form' do |f|
+  = form_with url: form_url, scope: :foodstuff, local: true, method: form_method, multipart: true, class: 'admin_form' do |f|
     div
       div
         = f.label '食材名'
       div
         = f.text_field :name, value: record.name
+    div
+      div
+        = f.label '読み仮名'
+      div
+        = f.text_field :ruby, value: record.ruby
+    div
+      div
+        = f.label 'メイン画像'
+      div
+        = f.file_field :main_image_key
     div
       div
         = f.label '純粋な食材？既製品？'
