@@ -31,7 +31,7 @@ class Foodstuff < ApplicationRecord
     '乳製品/卵' => 12,
     '調味料/油' => 13,
     '飲料/酒' => 14,
-	}
+	}, _prefix: true
 
   @@japanese_name = '食材'
   @@nutrition_name_list = {
@@ -78,7 +78,8 @@ class Foodstuff < ApplicationRecord
     dish_attributes = {
       name: self.name,
       genre: self.get_genre,
-      unit: unit
+      unit: unit,
+      main_image_key: self.main_image_key
     }
     dish = self.get_association_class(:dishes).find_or_initialize_by(dish_attributes)
     dish.recipes.build(foodstuff_id: self.id, unit: unit)
@@ -90,6 +91,35 @@ class Foodstuff < ApplicationRecord
     nutrition_name = nutrition_name.to_s
     gram = gram_or_unit.is_a?(Float) ? gram_or_unit : self.unit_list[gram_or_unit]
     self.send(nutrition_name) * (gram / 100.0)
+  end
+
+  def retouch_images
+
+  end
+
+  def retouch_image(image_path)
+    # image = MiniMagick::Image.open(image_path)
+    # image.format('jpeg')
+    # image.fuzz(20)
+    # image.bordercolor('#000000')
+    # image.border('1x1')
+    # image.trim
+    # image.modulate('110,120,100')
+    # image
+
+    ################
+
+    # return unless @tmp_images&.[](:image_key).is_a? MiniMagick::Image
+    # image = @tmp_images[:image_key]
+    # # image = MiniMagick::Image.open(@tmp_images[:image_key].tempfile.path)
+    # width, height = [image[:width] , image[:height]]
+    # return if image[:width] > image[:height]
+    # # image.crop("#{new_width}x#{new_height}+#{offset_x}+#{offset_y}!")
+    # new_width  = (width * 0.94).to_i
+    # new_height = (new_width * 0.5).to_i
+    # offset_x 	 = ((width - new_width) * 0.5).to_i
+    # offset_y	 = (height * 0.13).to_i
+    # image.crop("#{new_width}x#{new_height}+#{offset_x}+#{offset_y}!")
   end
 
   @@nutrition_name_list.keys.each do |nutrition_name|

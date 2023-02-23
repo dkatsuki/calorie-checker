@@ -5,7 +5,7 @@ class Dish < ApplicationRecord
 
 	enum genre: {
 		"料理": 0, "食材": 1, "既製品": 2,
-	}
+	}, _prefix: true
 
   has_many :recipes
   has_many :foodstuffs, through: :recipes
@@ -71,10 +71,6 @@ class Dish < ApplicationRecord
 			end.sum
 			self.send("#{attr_name}=", sum)
 		end
-	end
-
-	def image_source
-		self.main_image_key
 	end
 
 	def name=(value)
