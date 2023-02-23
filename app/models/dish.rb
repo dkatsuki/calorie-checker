@@ -22,8 +22,7 @@ class Dish < ApplicationRecord
   end
 
 	def self.search(params)
-		limit = params[:limit].present? ? params[:limit].to_i : 100
-		query = self.limit(limit)
+		query = self.all
 
 		if params[:name].present?
 			query = query.where('name LIKE ?', "%#{sanitize_sql_like(params[:name].to_s)}%")
@@ -48,6 +47,9 @@ class Dish < ApplicationRecord
 			order = sort_option[:order].to_sym
 			query = query.order(key => order)
 		end
+
+		limit = params[:limit].present? ? params[:limit].to_i : 100
+		query = self.limit(limit)
 
 		if params[:page].present?
 			page = params[:page].to_i
