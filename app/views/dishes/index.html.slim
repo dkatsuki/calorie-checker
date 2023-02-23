@@ -27,12 +27,24 @@ sass:
         p, a
           color: black;
         .thumbnail_image_box
+          position: relative;
           height: 110px;
           border: solid 1px LightGray;
           border-radius: 8px;
           display: flex;
           align-items: center;
           justify-content: center;
+          overflow: hidden;
+          > img
+            position: absolute;
+          > img:first-child
+            top: 0;
+            left: 0;
+          > img:last-child
+            bottom: 4%;
+            right: 4%;
+            width: 24px;
+            height: 24px;
         > div:last-child
           > div
             margin: 0.1rem 0;
@@ -64,10 +76,11 @@ div#top_wrapper.dishes_index
     - @records.each do |record|
       a.dish_thumbnail_box href="https://example.com" target="_blank"
         div.thumbnail_image_box
-          p No Image
+          = image_tag record.image_source, alt: record.name
+          = image_tag 'arrow-sircled-button.svg', alt: 'button'
         div
           div.カロリー枠
             p = "#{record.calorie}kcal"
-          div.料理名
+          div
             p = record.name
     div.pagination
