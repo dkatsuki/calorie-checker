@@ -11,31 +11,11 @@ div.width_80percent.margin_0_auto
         = f.text_field :name, value: @record.name
     div
       div
+        = f.label 'メイン画像'
+      div
+        = f.file_field :main_image_key
+    div
+      div
         = f.label 'レシピ'
       = render partial: 'admin/dishes/recipes_form', locals: {form: f}
-    / div
-    /   div
-    /     = f.label '100gあたりのカロリー'
-    /   div
-    /     = f.number_field :calorie, value: record.calorie, step: 0.01
-    / div
-    /   div
-    /     = f.label '100gあたりの糖質'
-    /   div
-    /     = f.number_field :sugar, value: record.sugar, step: 0.01
-    / div
-    /   div
-    /     = f.label '100gあたりの炭水化物'
-    /   div
-    /     = f.number_field :carbohydrate, value: record.carbohydrate, step: 0.01
-    / div
-    /   div
-    /     = f.label '100gあたりの脂質'
-    /   div
-    /     = f.number_field :fat, value: record.fat, step: 0.01
-    / div
-    /   div
-    /     = f.label '100gあたりのタンパク質'
-    /   div
-    /     = f.number_field :protein, value: record.protein, step: 0.01
     = f.submit controller.action_name == 'new' ? '作成する' : '更新する'

@@ -7,7 +7,8 @@ class Dish < ApplicationRecord
 		"料理": 0, "食材": 1, "既製品": 2,
 	}, _prefix: true
 
-  has_many :recipes
+  has_many :recipes, autosave: true
+	accepts_nested_attributes_for :recipes
   has_many :foodstuffs, through: :recipes
 	before_validation :set_data_from_recipes
 
