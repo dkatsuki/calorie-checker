@@ -1,7 +1,77 @@
-- each_page_stylesheet_link_tag("admin/dishes/recipes_form")
-div.nested_form
-  = form.fields_for :recipes do |child|
-    div.display_flex.justify-content_flex-start.gap_1_rem
+javascript:
+  const onLoad = () => {
+    const foodstuffs = JSON.parse(document.querySelector('[data-foodstuffs]').dataset.foodstuffs);
+
+    const setOnChangeToAllFoodstuffsSelectBoxes = () => {
+      const onChange = (e) => {
+        const foodstuff = foodstuffs.find(record => record.id == e.target.value);
+        const parent = e.target.parentElement.parentElement;
+        const orderNumber = parent.dataset.order;
+        const input = document.querySelector(`.recipes_attributes_form [data-order="${orderNumber}"] [name="dish[recipes_attributes][][unit]"]`);
+        input.value = Object.keys(foodstuff.unit_list).join(',');
+      }
+
+      const elements = document.querySelectorAll('[name="dish[recipes_attributes][][foodstuff_id]"]');
+
+      elements.forEach(element => element.onchange = onChange)
+    }
+
+    setOnChangeToAllFoodstuffsSelectBoxes();
+
+    const nestedForm = document.querySelector('.recipes_attributes_form');
+
+    const setInputValueToNameKey = (event) => {
+      const delimiter = '[';
+      const wrapper = event.target.parentElement.parentElement;
+      const target = wrapper.childNodes[1].querySelector('input');
+      const splitedBaseName = target.name.split(delimiter);
+      splitedBaseName[splitedBaseName.length - 1] = `${event.target.value}]`
+      const newName = splitedBaseName.join(delimiter);
+      target.name = newName;
+    };
+
+    const getKeyValueCombiElements = () => {
+      return(nestedForm.querySelectorAll('.recipes_attributes_form > div:not(.add_nested_record_button)'));
+    }
+
+    const addNestedRecordButton = nestedForm.querySelector('.add_nested_record_button');
+    addNestedRecordButton.classList.add(Date.now())
+
+    const createRemoveButton = (parentId) => {
+      const removeButton = document.createElement('div');
+      removeButton.classList.add('remove_nested_record_button')
+      removeButton.onclick = (event) => {
+        event.target.parentElement.parentElement.remove();
+      }
+      const pTag = document.createElement('p');
+      pTag.textContent = '削除';
+      removeButton.appendChild(pTag);
+      return(removeButton);
+    }
+
+    addNestedRecordButton.onclick = () => {
+      const baseElement = getKeyValueCombiElements()[0];
+      const newElement = baseElement.cloneNode(true);
+      const inputElements = newElement.querySelectorAll('input');
+      newElement.id = `id-${Date.now()}`;
+      inputElements.forEach((element) => {
+        element.id = `${element.id}_${Date.now()}`;
+        element.value = '';
+      })
+      newElement.appendChild(createRemoveButton(newElement.id));
+      newElement.dataset.order = nestedForm.childNodes.length;
+      nestedForm.insertBefore(newElement, addNestedRecordButton);
+      setOnChangeToAllFoodstuffsSelectBoxes();
+    }
+  }
+  window.addEventListener('turbo:load', onLoad);
+  window.addEventListener('turbo:submit-end', onLoad);
+div.hidden_tag data-foodstuffs=@foodstuffs.to_json
+div.recipes_attributes_form.nested_form
+  = form.fields_for "recipes_attributes[]", @record.recipes.build do |child|
+    div.display_flex.justify-content_flex-start.gap_1_rem data-order="1"
+      div
+        = child.select :foodstuff_id, @foodstuffs.pluck(:name, :id), include_blank: true
       div
         div
           = child.label 'グラム重量'
@@ -14,7 +84,5 @@ div.nested_form
           = child.label '単位'
         div
           = child.text_field :unit, value: nil, placeholder: "例）50, 80"
-      div
-        = child.select :user_id, [['太郎', 1], ['二郎', 2]], { selected: 1 }
   div.add_nested_record_button
-    p 単位追加
+    p 食材追加

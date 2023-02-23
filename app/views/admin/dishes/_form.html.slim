@@ -1,5 +1,4 @@
 - each_page_stylesheet_link_tag("admin/form")
-- each_page_javascript_import_tag("dishes/form")
 div.width_80percent.margin_0_auto
   h1 = page_title
   = link_to "一覧に戻る", '/admin/dishes'
@@ -9,11 +8,11 @@ div.width_80percent.margin_0_auto
       div
         = f.label '料理名'
       div
-        = f.text_field :name, value: record.name
+        = f.text_field :name, value: @record.name
     div
       div
         = f.label 'レシピ'
-      = render partial: 'admin/dishes/recipes_form', locals: {record: record, form: f}
+      = render partial: 'admin/dishes/recipes_form', locals: {form: f}
     / div
     /   div
     /     = f.label '100gあたりのカロリー'
