@@ -8,8 +8,8 @@ class Dish < ApplicationRecord
 	}, _prefix: true
 
   has_many :recipes, autosave: true
-	accepts_nested_attributes_for :recipes
   has_many :foodstuffs, through: :recipes
+	accepts_nested_attributes_for :recipes
 	before_validation :set_data_from_recipes
 
 	@@japanese_name = '料理'
@@ -68,6 +68,7 @@ class Dish < ApplicationRecord
 			:protein,
 			:sugar,
 		].each do |attr_name|
+			next if self.send(attr_name).present?
 			## まだdish自身がsaveされてなくて直接foodstuffsは呼べないのでrecipes経由
 			sum = self.recipes.map do |recipe|
 				recipe.foodstuff.get_nutrition_by(attr_name, (recipe.gram_weight || recipe.unit))
@@ -77,8 +78,13 @@ class Dish < ApplicationRecord
 	end
 
 	def name=(value)
-		self.ruby = value if self.ruby.blank?
+		self.ruby = value.to_consistent if self.ruby.blank?
 		self.write_attribute(:name, value)
+	end
+
+	def ruby=(value)
+		new_value = value.split(',').map {|word| word.to_consistent}.join(',')
+		self.write_attribute(:ruby, new_value)
 	end
 
 	def pure_foodstuff?

@@ -57,8 +57,13 @@ class Foodstuff < ApplicationRecord
   end
 
   def name=(value)
-		self.ruby = value if self.ruby.blank?
+		self.ruby = value.to_consistent if self.ruby.blank?
 		self.write_attribute(:name, value)
+	end
+
+  def ruby=(value)
+		new_value = value.split(',').map {|word| word.to_consistent}.join(',')
+		self.write_attribute(:ruby, new_value)
 	end
 
   def pure?

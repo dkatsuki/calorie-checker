@@ -4,6 +4,7 @@ div.width_80percent.margin_0_auto
   = link_to "一覧に戻る", '/admin/dishes'
   = render partial: 'admin/partials/error_messages', locals: {record: @record}
   = form_with url: form_url, scope: :dish, local: true, method: form_method, class: 'admin_form' do |f|
+    = f.hidden_field :genre, value: "料理"
     div
       div
         = f.label '料理名'
@@ -11,11 +12,46 @@ div.width_80percent.margin_0_auto
         = f.text_field :name, value: @record.name
     div
       div
-        = f.label 'メイン画像'
+        = f.label '読み仮名'
       div
-        = f.file_field :main_image_key
+        = f.text_field :ruby, value: @record.ruby
+    div
+      div
+        = f.label '単位'
+      div
+        = f.text_field :unit, value: @record.unit
+    div
+      div
+        = f.label 'カロリー ※空欄で自動計算'
+      div
+        = f.number_field :calorie, value: @record.calorie
+    div
+      div
+        = f.label '炭水化物 ※空欄で自動計算'
+      div
+        = f.number_field :carbohydrate, value: @record.carbohydrate
+    div
+      div
+        = f.label '糖質 ※空欄で自動計算'
+      div
+        = f.number_field :sugar, value: @record.sugar
+    div
+      div
+        = f.label '脂質 ※空欄で自動計算'
+      div
+        = f.number_field :fat, value: @record.fat
+    div
+      div
+        = f.label 'タンパク質 ※空欄で自動計算'
+      div
+        = f.number_field :protein, value: @record.protein
     div
       div
         = f.label 'レシピ'
+    div
+      div
+        = f.label 'メイン画像'
+      div
+        = f.file_field :main_image_key
       = render partial: 'admin/dishes/recipes_form', locals: {form: f}
     = f.submit controller.action_name == 'new' ? '作成する' : '更新する'
