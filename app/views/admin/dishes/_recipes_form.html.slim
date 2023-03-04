@@ -68,21 +68,23 @@ javascript:
   window.addEventListener('turbo:submit-end', onLoad);
 div.hidden_tag data-foodstuffs=@foodstuffs.to_json
 div.recipes_attributes_form.nested_form
-  = form.fields_for "recipes_attributes[]", @record.recipes.build do |child|
-    div.display_flex.justify-content_flex-start.gap_1_rem data-order="1"
-      div
-        = child.select :foodstuff_id, @foodstuffs.pluck(:name, :id), include_blank: true
-      div
+  - (@record.recipes.first.present? ? @record.recipes : [@record.recipes.build]).each do |instance|
+    = form.fields_for "recipes_attributes[]", instance do |child|
+      = child.hidden_field :id, value: instance.id
+      div.display_flex.justify-content_flex-start.gap_1_rem data-order="1"
         div
-          = child.label 'グラム重量'
+          = child.select :foodstuff_id, @foodstuffs.pluck(:name, :id), include_blank: true
         div
-          = child.number_field :gram_weight, value: nil, placeholder: "例）50, 80", step: 0.01
-      div
-        p or
-      div
+          div
+            = child.label 'グラム重量'
+          div
+            = child.number_field :gram_weight, value: instance.gram_weight, placeholder: "例）50, 80", step: 0.01
         div
-          = child.label '単位'
+          p or
         div
-          = child.text_field :unit, value: nil, placeholder: "例）50, 80"
+          div
+            = child.label '単位'
+          div
+            = child.text_field :unit, value: instance.unit, placeholder: "例）50, 80"
   div.add_nested_record_button
     p 食材追加

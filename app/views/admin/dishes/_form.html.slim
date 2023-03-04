@@ -22,27 +22,27 @@ div.width_80percent.margin_0_auto
         = f.text_field :unit, value: @record.unit
     div
       div
-        = f.label 'カロリー ※空欄で自動計算'
+        = f.label 'カロリー ※新規作成の時は空欄で自動計算、更新時は手動で変える'
       div
         = f.number_field :calorie, value: @record.calorie
     div
       div
-        = f.label '炭水化物 ※空欄で自動計算'
+        = f.label '炭水化物 ※新規作成の時は空欄で自動計算、更新時は手動で変える'
       div
         = f.number_field :carbohydrate, value: @record.carbohydrate
     div
       div
-        = f.label '糖質 ※空欄で自動計算'
+        = f.label '糖質 ※新規作成の時は空欄で自動計算、更新時は手動で変える'
       div
         = f.number_field :sugar, value: @record.sugar
     div
       div
-        = f.label '脂質 ※空欄で自動計算'
+        = f.label '脂質 ※新規作成の時は空欄で自動計算、更新時は手動で変える'
       div
         = f.number_field :fat, value: @record.fat
     div
       div
-        = f.label 'タンパク質 ※空欄で自動計算'
+        = f.label 'タンパク質 ※新規作成の時は空欄で自動計算、更新時は手動で変える'
       div
         = f.number_field :protein, value: @record.protein
     div

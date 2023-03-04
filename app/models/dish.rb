@@ -10,7 +10,7 @@ class Dish < ApplicationRecord
   has_many :recipes, autosave: true
   has_many :foodstuffs, through: :recipes
 	accepts_nested_attributes_for :recipes
-	before_validation :set_data_from_recipes
+	before_validation :set_data_from_recipes, if: :new_record?
 
 	@@japanese_name = '料理'
 

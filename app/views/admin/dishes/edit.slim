@@ -1,0 +1,5 @@
+= render partial: 'admin/dishes/form', \
+  locals: { \
+    page_title: "料理更新", \
+    form_method: :patch, form_url: "/admin/dishes/#{@record.id}" \
+  }
