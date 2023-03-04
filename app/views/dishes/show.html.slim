@@ -1,0 +1,67 @@
+sass:
+  #top_wrapper
+    > div
+      margin-top: 18px;
+      width: 100%;
+    div.header_point
+      border-left: 4px solid black;
+    div.top_header
+      border-bottom: 1px solid gray;
+      padding-bottom: 12px;
+      p
+        font-size: 1.6rem;
+        font-weight: bold;
+    div.basic_information_container
+      display: flex;
+      div.basic_information_text_area
+        width: 50%;
+        div.basic_information_textboxes
+          display: flex;
+          flex-wrap: wrap;
+          width: 100%;
+          justify-content: space-between;
+          > div
+            display: flex;
+            width: 48%;
+            border-bottom: 1px solid lightGray;
+      div.basic_information_image
+        width: 50%;
+        img
+          width: 100%;
+          height: auto;
+= render 'partials/header'
+div#top_wrapper
+  div.top_header
+    p = @record.article_title
+  div.basic_information_container
+    div.basic_information_text_area
+      div.header_point
+        p = unit_with_gram_text(@record) + 'あたり'
+      div.basic_information_textboxes
+        div
+          div
+            p カロリー
+          div
+            p = "#{@record.calorie}kcal"
+        div
+          div
+            p 糖質
+          div
+            p = "#{@record.sugar}g"
+        div
+          div
+            p 脂質
+          div
+            p = "#{@record.fat}g"
+        div
+          div
+            p タンパク質
+          div
+            p = "#{@record.protein}g"
+    div.basic_information_image
+      = image_tag @record.image_source, alt: @record.name
+
+
+
+
+

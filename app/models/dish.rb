@@ -81,6 +81,18 @@ class Dish < ApplicationRecord
 		self.write_attribute(:name, value)
 	end
 
+	def pure_foodstuff?
+		self.genre == '食材'
+	end
+
+	def pure_dish?
+		self.genre == '料理'
+	end
+
+	def article_title
+		"#{self.name}のカロリーと糖質は？栄養や美容効果、レシピなどを紹介！"
+	end
+
 	self.nutrition_name_list.keys.each do |nutrition_name|
     # define_method("get_#{nutrition_name}_by") do |gram_or_unit|
     #   self.get_nutrition_by(nutrition_name, gram_or_unit)
