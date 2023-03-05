@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
     respond_to do |format|
       format.html
-      format.json { render json: @records }
+      format.json { render json: @records.to_json(params[:to_json_option]) }
     end
   end
 

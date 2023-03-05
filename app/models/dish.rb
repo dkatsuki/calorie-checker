@@ -9,6 +9,7 @@ class Dish < ApplicationRecord
 
   has_many :recipes, autosave: true
   has_many :foodstuffs, through: :recipes
+  has_one :article, class_name: "DishArticle"
 	accepts_nested_attributes_for :recipes
 	before_validation :set_data_from_recipes, if: :new_record?
 
@@ -27,6 +28,10 @@ class Dish < ApplicationRecord
 
 		if params[:name].present?
 			query = query.where('name LIKE ?', "%#{sanitize_sql_like(params[:name].to_s)}%")
+		end
+
+		if params[:ruby].present?
+			query = query.where('ruby LIKE ?', "%#{sanitize_sql_like(params[:ruby].to_s)}%")
 		end
 
 		if params[:genre].present?
@@ -50,7 +55,7 @@ class Dish < ApplicationRecord
 		end
 
 		limit = params[:limit].present? ? params[:limit].to_i : 100
-		query = self.limit(limit)
+		query = query.limit(limit)
 
 		if params[:page].present?
 			page = params[:page].to_i

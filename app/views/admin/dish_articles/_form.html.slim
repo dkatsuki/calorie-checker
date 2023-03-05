@@ -1,0 +1,53 @@
+- each_page_stylesheet_link_tag("admin/form")
+- each_page_javascript_import_tag("utility")
+sass:
+  textarea
+    width: 48%;
+javascript:
+  window.addEventListener('turbo:load', () => {
+    const searchWordBox = document.querySelector(".dish_search_word_box");
+    searchWordBox.onchange = (event) => {
+      const createOptionElement = (value, text) => {
+        const option = document.createElement("option");
+        option.setAttribute("value", value);
+        option.textContent = text;
+        return(option);
+      }
+
+      const callback = (response) => {
+        const selectBox = document.querySelector("select.dish_select_box");
+
+        while (selectBox.firstChild) {
+          selectBox.removeChild(selectBox.firstChild);
+        }
+
+        selectBox.appendChild(createOptionElement(0, '選択してえ'));
+
+        response.forEach((record) => {
+          selectBox.appendChild(createOptionElement(record.id, record.name));
+        })
+      }
+
+      const query = {ruby: event.target.value, to_json_option: {only: ['id', 'name']}}
+      window.ajax.get(callback, "/dishes", query);
+    }
+
+  });
+
+div.width_80percent.margin_0_auto
+  h1 = page_title
+  = link_to "一覧に戻る", '/admin/dish_articles'
+  = render partial: 'admin/partials/error_messages', locals: {record: @record}
+  = form_with url: form_url, scope: :dish, local: true, method: form_method, class: 'admin_form' do |f|
+    div
+      div
+        = f.label '料理'
+      div
+        = f.select :dish_id, options_for_select(@dishes.pluck(:name, :id).to_a), {prompt: "選択してください"}, {class: 'dish_select_box'}
+        = text_field_tag :dish_search_word, '', class: 'dish_search_word_box'
+    div.width_100percent
+      div.width_100percent
+        = f.label '記事内容'
+      div.width_100percent
+        = f.text_area :body, value: @record.body
+    = f.submit controller.action_name == 'new' ? '作成する' : '更新する'
