@@ -11,7 +11,6 @@ class Admin::ApplicationController < ApplicationController
         format.html { redirect_to action: :index, flash: {messages: ["#{@record.class.name}のレコード作成に成功しました。"] }}
         format.json { render :show, status: :created, location: @record }
       else
-        binding.pry
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @record.errors, status: :unprocessable_entity }
       end
