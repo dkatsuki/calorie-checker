@@ -1,0 +1,2 @@
+class DishArticle < ApplicationRecord
+end
