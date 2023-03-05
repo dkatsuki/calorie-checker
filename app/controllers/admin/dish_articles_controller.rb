@@ -7,9 +7,6 @@ class Admin::DishArticlesController < Admin::ApplicationController
 
   private
     def strong_parameters
-      result = params.require(:dish).permit([
-        *self.model.attribute_names,
-        recipes_attributes: self.model.get_association_class(:recipes).attribute_names
-      ])
+      result = params.require(:dish_article).permit(self.model.attribute_names)
     end
 end

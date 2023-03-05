@@ -1,8 +1,18 @@
 - each_page_stylesheet_link_tag("admin/form")
 - each_page_javascript_import_tag("utility")
 sass:
-  textarea
-    width: 48%;
+  .article_editor
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    > div
+      width: 49%;
+    > div:first-child
+      textarea
+        width: 100%;
+        height: 100%;
+    > div:last-child
+      border: 1px solid gray;
 javascript:
   window.addEventListener('turbo:load', () => {
     const searchWordBox = document.querySelector(".dish_search_word_box");
@@ -38,16 +48,19 @@ div.width_80percent.margin_0_auto
   h1 = page_title
   = link_to "一覧に戻る", '/admin/dish_articles'
   = render partial: 'admin/partials/error_messages', locals: {record: @record}
-  = form_with url: form_url, scope: :dish, local: true, method: form_method, class: 'admin_form' do |f|
+  = form_with url: form_url, scope: :dish_article, local: true, method: form_method, class: 'admin_form' do |f|
     div
       div
         = f.label '料理'
       div
         = f.select :dish_id, options_for_select(@dishes.pluck(:name, :id).to_a), {prompt: "選択してください"}, {class: 'dish_select_box'}
         = text_field_tag :dish_search_word, '', class: 'dish_search_word_box'
-    div.width_100percent
-      div.width_100percent
+    div
+      div
         = f.label '記事内容'
-      div.width_100percent
-        = f.text_area :body, value: @record.body
+      div.article_editor
+        div
+          = f.text_area :body, value: @record.body
+        div
+          = @record.htmlized_body.html_safe
     = f.submit controller.action_name == 'new' ? '作成する' : '更新する'

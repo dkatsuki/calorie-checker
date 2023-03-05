@@ -1549,6 +1549,7 @@ GEM
       zeitwerk (~> 2.5)
     raindrops (0.20.0)
     rake (13.0.6)
+    redcarpet (3.6.0)
     redis (4.8.1)
     regexp_parser (2.7.0)
     reline (0.3.2)
@@ -1631,6 +1632,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-cors
   rails (~> 7.0.4)
+  redcarpet
   redis (~> 4.0)
   sassc
   sassc-rails

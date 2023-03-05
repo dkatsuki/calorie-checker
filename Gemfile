@@ -21,6 +21,7 @@ gem "sassc-rails"
 gem 'rack-cors'
 gem 'aws-sdk'
 gem 'nkf'
+gem 'redcarpet'
 gem 'mini_magick'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
