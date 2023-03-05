@@ -1,5 +1,7 @@
 - each_page_stylesheet_link_tag("admin/form")
 - each_page_javascript_import_tag("utility")
+javascript:
+  window
 sass:
   .article_editor
     width: 100%;
@@ -14,7 +16,7 @@ sass:
     > div:last-child
       border: 1px solid gray;
 javascript:
-  window.addEventListener('turbo:load', () => {
+  const setDishSelectSearch = () => {
     const searchWordBox = document.querySelector(".dish_search_word_box");
     searchWordBox.onchange = (event) => {
       const createOptionElement = (value, text) => {
@@ -41,7 +43,26 @@ javascript:
       const query = {ruby: event.target.value, to_json_option: {only: ['id', 'name']}}
       window.ajax.get(callback, "/dishes", query);
     }
+  }
 
+  const setFetchParsedMarkDown = () => {
+    const textarea = document.querySelector(".article_editor textarea");
+    const callback = (response) => {
+      const container = document.querySelector(".article_editor > div:last-child");
+      container.innerHTML = response.html;
+    }
+
+    textarea.addEventListener("keydown", (event) => {
+      if (event.keyCode !== 13) { return; }
+      window.ajax.post(callback, "/admin/dish_articles/parse_markdown", {
+        mark_down_text: event.target.value
+      });
+    })
+  }
+
+  window.addEventListener('turbo:load', () => {
+    setDishSelectSearch();
+    setFetchParsedMarkDown();
   });
 
 div.width_80percent.margin_0_auto

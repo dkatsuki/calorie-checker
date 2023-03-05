@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :foodstuffs
     resources :dishes
-    resources :dish_articles
+    resources :dish_articles do
+      post :parse_markdown, on: :collection
+    end
     resources :recipes
   end
 end
