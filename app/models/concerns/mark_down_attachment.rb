@@ -14,6 +14,7 @@ module MarkDownAttachment
     end
 
     def to_html(md_text)
+      return '' if md_text.blank?
       md_parser = Redcarpet::Markdown.new(
         Redcarpet::Render::HTML,
         fenced_code_blocks: true,
