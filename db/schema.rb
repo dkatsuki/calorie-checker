@@ -16,6 +16,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_05_081542) do
 
   create_table "dish_articles", force: :cascade do |t|
     t.bigint "dish_id"
+    t.json "headers"
     t.text "body", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

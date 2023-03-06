@@ -23,6 +23,10 @@ module MarkDownAttachment
       )
       md_parser.render(md_text)
     end
+
+    def giko_giko(raw_html)
+      Nokogiri::HTML.parse(raw_html)
+    end
   end
 
   def htmlized_body
