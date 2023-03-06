@@ -19,7 +19,8 @@ module MarkDownAttachment
         Redcarpet::Render::HTML,
         fenced_code_blocks: true,
         autolink: true,
-        tables: true
+        tables: true,
+        hard_wrap: true
       )
       md_parser.render(md_text)
     end
