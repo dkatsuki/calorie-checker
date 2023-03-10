@@ -22,16 +22,17 @@ article#top_wrapper
             p = "#{@record.protein}g"
     div.basic_information_image
       = image_tag @record.image_source, alt: @record.name
-  div.article_part_container
-    div.table_of_contents
-      div.header_point
-        p 目次
-      ol
-        - @record.article.headers.each do |data|
-          li
-            = link_to data['text'], { anchor: "topic" }
-    div.article_body
-      = @record.article.htmlized_body.html_safe
+  - if @record.article.present?
+    div.article_part_container
+      div.table_of_contents
+        div.header_point
+          p 目次
+        ol
+          - @record.article.headers.each do |data|
+            li
+              = link_to data['text'], { anchor: "topic" }
+      div.article_body
+        = @record.article.htmlized_body.html_safe
 sass:
   #top_wrapper
     > div
