@@ -23,6 +23,7 @@ gem 'aws-sdk'
 gem 'nkf'
 gem 'redcarpet'
 gem 'mini_magick'
+gem "ruby-openai"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
