@@ -1,4 +1,23 @@
 
+const list = {}
+table.querySelectorAll('tbody tr').forEach((tr) => {
+  const row = Array.from(tr.querySelectorAll('td')).map(e => e)
+  const ageKey = tr.querySelector('th').textContent
+  list[ageKey] = row
+})
+
+const results = [['年齢', '参照体重(男)', '基礎代謝量(男)', '参照体重(女)', '基礎代謝量(女)']]
+
+Object.keys(list).forEach((ageKey) => {
+  const m = list[ageKey]['male'];
+  const f = list[ageKey]['male'];
+  results.push([ageKey, m['参照体重'], m['基礎代謝量'], f['参照体重'], f['基礎代謝量']])
+})
+
+console.log(results.map(row => row.join(',')).join("\n"))
+
+
+
 
 const onLoad = () => {
   const nestedForm = document.querySelector('.nested_form')

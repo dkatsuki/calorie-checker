@@ -1,0 +1,14 @@
+sass:
+  a.more_link
+    height: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    p
+      font-size: 1rem;
+    img
+      fill: blue;
+- content ||= "もっと見る"
+= link_to to, class: "more_link" do
+  p = content
+  = image_tag 'arrow_to_right_blue.svg', alt: 'やじるし'
