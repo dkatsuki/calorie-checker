@@ -1,3 +1,4 @@
+- each_page_stylesheet_link_tag("default_article")
 = render 'partials/header'
 sass:
   div.dish_index_part
@@ -5,22 +6,26 @@ sass:
     border-bottom: solid 1px gray;
     .more-link
       margin-top: 8px;
-  article.article_part
+  article.default_article
     margin-top: 24px;
 main#top_wrapper
   div.dish_index_part
     = render 'dishes/index'
     = render 'partials/more_link', to: '/dishes'
-  article.article_part
+  article.default_article
     section
       div
         h1 そもそもカロリーとは？ダイエットとどう関係するの？どのくらいのカロリーを摂ればどのくらい太る？やせる？
-      nav.table_of_contents
-        p 目次
+      nav.table-of-contents
+        div
+          p 目次
         ol
-          li そもそもカロリーとは？
-          li ダイエットとどの様に関係するか？
-          li どのくらいカロリーを摂ればやせる？太る？
+          li
+            a そもそもカロリーとは？
+          li
+            a ダイエットとどの様に関係するか？
+          li
+            a どのくらいカロリーを摂ればやせる？太る？
     section
       div
         h2 そもそもカロリーとは？

@@ -1,0 +1,25 @@
+article.default_article {
+  h1, h2, h3 {
+    border-bottom: solid 1px gray;
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .table-of-contents {
+    margin: 2rem auto;
+    width: 66%;
+    border: solid 1px lightGray;
+    padding: 2rem;
+    > div:first-child {
+      padding-left: 0.3rem;
+      border-left: 4px solid black;
+      margin-bottom: 0.8rem;
+    }
+
+    > ol {
+      > li {
+        padding: 0.2rem;
+      }
+    }
+  }
+}

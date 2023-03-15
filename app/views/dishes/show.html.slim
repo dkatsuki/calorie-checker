@@ -24,7 +24,7 @@ article#top_wrapper
       = image_tag @record.image_source, alt: @record.name
   - if @record.article.present?
     div.article_part_container
-      div.table_of_contents
+      div.table-of-contents
         div.header_point
           p 目次
         ol
@@ -68,5 +68,5 @@ sass:
           width: 100%;
           height: auto;
     div.article_part_container
-      div.table_of_contents
+      div.table-of-contents
         margin-bottom: 24px;
