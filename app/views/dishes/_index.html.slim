@@ -15,6 +15,48 @@ sass:
   .dishes_index
     .search_form
       border-bottom: solid 1px black;
+      padding-bottom: 0.5rem;
+      > div.search-word-form
+        height: 44px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        > input
+          width: 92%;
+          height: 100%;
+          border-radius: 8px;
+          font-size: 1.4rem;
+          padding-left: 2%;
+        > button
+          width: 8%;
+          display: flex;
+          justify-content: flex-end;
+          background-color: white;
+          padding: 0;
+          margin: 0;
+          border: none;
+          background-repeat: no-repeat;
+          background-size: contain;
+          height: 100%;
+          cursor: pointer;
+          img
+            height: 100%;
+      div.genre-checkboxes
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 28%;
+        > div
+          > label
+            font-size: 1.1rem;
+            margin-right: 0.2rem;
+      div.sort-selectboxes
+        display: flex;
+        justify-content: space-between;
+        gap: 0 0.4rem;
+        > select
+          font-size: 1rem;
     .records_container
       display: flex;
       flex-wrap: wrap;
@@ -60,16 +102,17 @@ sass:
 div.dishes_index
   = form_with url: '/dishes', method: :get, local: true, class: 'search_form' do |f|
     = f.hidden_field :limit, value: 4
-    div.display_flex.justify-content_flex-start
+    div.search-word-form.display_flex.justify-content_flex-start
       = f.text_field :name, value: (params[:name]), placeholder: '食材や料理の名前で検索'
-      = f.submit '検索'
+      = button_tag type: :submit do
+        = image_tag "magnify-grass-button.svg"
     div.display_flex
-      div.display_flex.justify-content_flex-start
+      div.genre-checkboxes.display_flex.justify-content_flex-start
         - @model.genres.keys.each do |genre|
           div
             = f.label genre
             = check_box_tag("genre[]", genre, (params[:genre].present? ? params[:genre].include?(genre) : true))
-      div
+      div.sort-selectboxes
         = f.select "sort[key]", @model.nutrition_name_list.invert, {selected: params&.[](:sort)&.[](:key)}
         = f.select "sort[order]", {'高い順' => :desc, '低い順' => :asc}, {selected: params&.[](:sort)&.[](:order)}
   div.records_container

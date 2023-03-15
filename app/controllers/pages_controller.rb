@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   def top
     @model = Dish
-    @records = @model.search({limit: 3})
+    @records = @model.search({limit: 6})
     @basal_metabolic_rate_list = get_basal_metabolic_rate_list
   end
 
