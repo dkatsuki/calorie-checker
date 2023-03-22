@@ -1,4 +1,4 @@
-article.default_article {
+article.default-article {
   h1, h2, h3 {
     border-bottom: solid 1px gray;
     margin-bottom: 1rem;
@@ -10,6 +10,7 @@ article.default_article {
     width: 66%;
     border: solid 1px lightGray;
     padding: 2rem;
+
     > div:first-child {
       padding-left: 0.3rem;
       border-left: 4px solid black;
