@@ -11,16 +11,24 @@ article#top_wrapper.default-article
         ul
           li
             p カロリー
-            p = "#{@record.calorie}kcal"
+            p
+              span = @record.calorie
+              | kcal
           li
             p 糖質
-            p = "#{@record.sugar}g"
+            p
+              span = @record.sugar
+              | g
           li
             p 脂質
-            p = "#{@record.fat}g"
+            p
+              span = @record.fat
+              | g
           li
             p タンパク質
-            p = "#{@record.protein}g"
+            p
+              span = @record.protein
+              | g
     div.basic_information_image
       = image_tag @record.image_source, alt: @record.name
   - if @record.article.present?
@@ -41,6 +49,9 @@ sass:
       width: 100%;
     div.header_point
       border-left: 4px solid black;
+      padding-left: 0.2rem;
+      p
+        font-size: 1.3rem;
     div.top_header
       border-bottom: 1px solid gray;
       padding-bottom: 12px;
@@ -52,17 +63,23 @@ sass:
       div.basic_information_text_area
         width: 50%;
         div.basic_information_textboxes
+          margin-top: 1rem;
           > ul
             display: flex;
             flex-wrap: wrap;
             width: 100%;
             justify-content: flex-start;
-            gap: 0 10%;
+            gap: 1rem 10%;
             > li
+              font-size: 1rem;
               display: flex;
               width: 40%;
               border-bottom: 1px solid lightGray;
               justify-content: space-between;
+              align-items: center;
+              > p
+                > span
+                  font-weight: bold;
       div.basic_information_image
         width: 50%;
         img
