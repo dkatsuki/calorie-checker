@@ -1,5 +1,6 @@
+- each_page_stylesheet_link_tag("default_article")
 = render 'partials/header'
-article#top_wrapper
+article#top_wrapper.default-article
   div.top_header
     h1 = @record.article_title
   div.basic_information_container

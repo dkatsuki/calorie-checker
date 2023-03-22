@@ -65,17 +65,24 @@ javascript:
     setFetchParsedMarkDown();
   });
 
+- is_new = page_title == "料理記事新規作成"
 div.width_80percent.margin_0_auto
   h1 = page_title
   = link_to "一覧に戻る", '/admin/dish_articles'
   = render partial: 'admin/partials/error_messages', locals: {record: @record}
   = form_with url: form_url, scope: :dish_article, local: true, method: form_method, class: 'admin_form' do |f|
+    - unless is_new
+      = f.hidden_field :dish_id, value: @record.dish.id
     div
       div
         = f.label '料理'
-      div
-        = f.select :dish_id, options_for_select(@dishes.pluck(:name, :id).to_a), {prompt: "選択してください"}, {class: 'dish_select_box'}
-        = text_field_tag :dish_search_word, '', class: 'dish_search_word_box'
+      - if is_new
+        div
+          = f.select :dish_id, options_for_select(@dishes.pluck(:name, :id).to_a), {prompt: "選択してください"}, {class: 'dish_select_box'}
+          = text_field_tag :dish_search_word, '', class: 'dish_search_word_box'
+      - else
+        div
+          p = @record.dish.name
     div
       div
         = f.label '記事内容'

@@ -1,5 +1,5 @@
 class Admin::DishArticlesController < Admin::ApplicationController
-  before_action :set_dishes, only: [:new, :edit]
+  before_action :set_dishes, only: [:new, :edit, :update, :create]
 
   def parse_markdown
     respond_to do |format|
