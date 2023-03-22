@@ -28,9 +28,9 @@ article#top_wrapper
         div.header_point
           p 目次
         ol
-          - @record.article.headers.each do |data|
+          - @record.article.headers.each_with_index do |data, index|
             li
-              = link_to data['text'], { anchor: "topic" }
+              = link_to data['text'], { anchor: "header-id-#{index}" }
       div.article_body
         = @record.article.htmlized_body.html_safe
 sass:

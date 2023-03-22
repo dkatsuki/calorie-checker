@@ -32,6 +32,10 @@ module MarkDownAttachment
 
   def htmlized_body
     return @htmlized_body if @htmlized_body.present?
-    @htmlized_body = self.class.to_html(self.body)
+    doc = self.class.giko_giko(self.class.to_html(self.body))
+    doc.css('h1, h2, h3').each_with_index do |element, index|
+      element['id'] = "header-id-#{index}"
+    end
+    @htmlized_body = doc.to_html
   end
 end
