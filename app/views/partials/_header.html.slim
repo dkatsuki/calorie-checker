@@ -9,8 +9,11 @@ sass:
     > div:first-child
       display: flex;
       align-items: center;
-      img
-        height: 28px;
+      > a
+        display: flex;
+        align-items: center;
+        > img
+          height: 28px;
 div.header
   div
-    = image_tag 'logo-black.svg', alt: 'カロリーチェッカー'
+    = link_to image_tag('logo-black.svg', alt: 'カロリーチェッカー'), "/"
