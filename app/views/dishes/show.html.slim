@@ -53,15 +53,16 @@ sass:
       p
         font-size: 1.3rem;
     div.top_header
+      margin-bottom: 2rem;
       border-bottom: 1px solid gray;
-      padding-bottom: 12px;
       h1
         font-size: 1.6rem;
         font-weight: bold;
     div.basic_information_container
       display: flex;
-      div.basic_information_text_area
+      > div
         width: 50%;
+      div.basic_information_text_area
         div.basic_information_textboxes
           margin-top: 1rem;
           > ul
@@ -71,20 +72,32 @@ sass:
             justify-content: flex-start;
             gap: 1rem 10%;
             > li
-              font-size: 1rem;
               display: flex;
               width: 40%;
               border-bottom: 1px solid lightGray;
               justify-content: space-between;
               align-items: center;
               > p
+                white-space: nowrap;
                 > span
                   font-weight: bold;
       div.basic_information_image
-        width: 50%;
         img
           width: 100%;
           height: auto;
     div.article_part_container
       div.table-of-contents
         margin-bottom: 24px;
+    @media (max-width: 768px)
+      div.basic_information_container
+        div.basic_information_text_area
+            div.basic_information_textboxes
+              > ul
+                gap: 1rem 4%;
+                width: 100%;
+                > li
+                  width: 46%;
+                  display: block;
+                  > p
+                    > span
+                      font-weight: bold;
