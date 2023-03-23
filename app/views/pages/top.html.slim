@@ -8,6 +8,11 @@ sass:
       margin-top: 8px;
   article.default-article
     margin-top: 24px;
+  @media (max-width: 768px)
+    .dishes_index
+      .records_container
+        a:nth-last-child(-n+2)
+          display: none;
 main#top_wrapper
   div.dish_index_part
     = render 'dishes/index'
@@ -119,7 +124,7 @@ main#top_wrapper
         p
           | 既に基本的な体重の増減とカロリーの仕組みについては前の項で述べてしまいましたので、
           | この項では年齢や性別毎の基礎代謝を紹介しておきます。
-          | 
+          |
       div
         table
           thead
