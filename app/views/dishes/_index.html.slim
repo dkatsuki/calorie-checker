@@ -42,21 +42,27 @@ sass:
           cursor: pointer;
           img
             height: 100%;
-      div.genre-checkboxes
+      > div
+        width: 100%;
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        width: 28%;
-        > div
-          > label
-            font-size: 1.1rem;
-            margin-right: 0.2rem;
-      div.sort-selectboxes
-        display: flex;
-        justify-content: space-between;
-        gap: 0 0.4rem;
-        > select
-          font-size: 1rem;
+        > div.genre-checkboxes
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          gap: 0 1rem;
+          > div
+            > label
+              font-size: 1.1rem;
+              margin-right: 0.2rem;
+              display: inline-block;
+              white-space: nowrap;
+        > div.sort-selectboxes
+          display: flex;
+          justify-content: space-between;
+          gap: 0 0.4rem;
+          > select
+            font-size: 1rem;
     .records_container
       display: flex;
       flex-wrap: wrap;
@@ -99,14 +105,26 @@ sass:
           > div:last-child > p
             font-weight: bold;
     .pagination
+    @media (max-width: 768px)
+      .search_form
+        > div
+          > div.genre-checkboxes
+            gap: 0 0.4rem;
+            > div
+              > label
+                font-size: 1rem;
+                margin-right: 0.1rem;
+          > div.sort-selectboxes
+            > select
+              font-size: 0.9rem;
 div.dishes_index
   = form_with url: '/dishes', method: :get, local: true, class: 'search_form' do |f|
     = f.hidden_field :limit, value: 4
-    div.search-word-form.display_flex.justify-content_flex-start
+    div.search-word-form.justify-content_flex-start
       = f.text_field :name, value: (params[:name]), placeholder: '食材や料理の名前で検索'
       = button_tag type: :submit do
         = image_tag "magnify-grass-button.svg"
-    div.display_flex
+    div
       div.genre-checkboxes.display_flex.justify-content_flex-start
         - @model.genres.keys.each do |genre|
           div
