@@ -10,3 +10,11 @@
 div.data-tag {
   display: none;
 }
+
+@media (max-width: 768px) {
+  #top_wrapper {
+    overflow-x: hidden;
+    width: 96vw;
+    margin: 20px auto;
+  }
+}
