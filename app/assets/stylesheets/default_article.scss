@@ -23,4 +23,16 @@ article.default-article {
       }
     }
   }
+
+  @media (max-width: 768px) {
+    .table-of-contents {
+      width: 90%;
+      > ol {
+        > li {
+          padding: 0.4rem 0.4rem;
+        }
+      }
+    }
+  }
+
 }
