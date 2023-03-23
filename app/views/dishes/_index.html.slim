@@ -117,6 +117,12 @@ sass:
           > div.sort-selectboxes
             > select
               font-size: 0.9rem;
+      .records_container
+        gap: 0;
+        .dish_thumbnail_box
+          width: 48%;
+          .thumbnail_image_box
+            height: 120px;
 div.dishes_index
   = form_with url: '/dishes', method: :get, local: true, class: 'search_form' do |f|
     = f.hidden_field :limit, value: 4
