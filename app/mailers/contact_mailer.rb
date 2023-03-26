@@ -1,4 +1,12 @@
 class ContactMailer < ApplicationMailer
+
+  def self.include_blank?(mail_info)
+    mail_info[:email].blank? ||
+    mail_info[:name].blank? ||
+    mail_info[:subject].blank? ||
+    mail_info[:body].blank?
+  end
+
 	def default_from
 		Rails.application.credentials.config[:smtp][:user_name]
 	end

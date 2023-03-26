@@ -14,11 +14,6 @@ Object.keys(list).forEach((ageKey) => {
   results.push([ageKey, m['参照体重'], m['基礎代謝量'], f['参照体重'], f['基礎代謝量']])
 })
 
-console.log(results.map(row => row.join(',')).join("\n"))
-
-
-
-
 const onLoad = () => {
   const nestedForm = document.querySelector('.nested_form')
 

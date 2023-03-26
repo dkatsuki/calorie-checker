@@ -6,7 +6,7 @@ sass:
     justify-content: center;
     p, a
       color: white;
-    > div
+    > div:first-child
       width: 710px;
       display: flex;
       align-items: center;
@@ -18,6 +18,9 @@ sass:
         justify-content: center;
       > div:last-child
         border-right: solid 1px white;
+    > div:last-child
+      position: absolute;
+      right: 20px;
     @media (max-width: 768px)
       > div
         overflow-x: hidden;
@@ -29,3 +32,5 @@ div.footer
       = link_to '運営者情報', '/about_us'
     div
       = link_to 'お問合せ', '/contact'
+  div
+    p © 2023 Flavor. All Rights Reserved.

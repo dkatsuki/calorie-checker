@@ -1,0 +1,16 @@
+sass:
+  div.error_messages_box
+    background-color: pink;
+    padding: 6px;
+- error_messages = nil
+
+- if flash&.now&.[](:error_messages).present?
+  - error_messages = flash.now[:error_messages]
+- elsif flash&.[](:error_messages).present?
+  - error_messages = flash[:error_messages]
+
+- if error_messages.present?
+  div.error_messages_box
+    - error_messages.each do |error_message|
+      div
+        p = error_message

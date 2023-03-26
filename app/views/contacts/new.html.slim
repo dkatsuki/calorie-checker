@@ -1,5 +1,7 @@
 sass:
   #top_wrapper
+    div.error_messages_box
+      width: 40%;
     div.header_point
       margin-bottom: 1rem;
     form
@@ -24,25 +26,26 @@ sass:
 div#top_wrapper
   div.header_point
     p お問合せ
-  = form_with url: contact_path, method: :post, local: true do |f|
+  = render partial: 'partials/error_messages'
+  = form_with url: '/contact', method: :post, local: true do |f|
     div
       div
         = f.label :name, 'お名前'
       div
-        = f.text_field :name
+        = f.text_field :name, value: @name
     div
       div
         = f.label :email, 'メールアドレス'
       div
-        = f.email_field :email
+        = f.email_field :email, value: @email
     div
-      div
-        = f.label :subject, '件名'
+      divsubject
+        = f.label :subject, '件名', value: @subject
       div
         = f.text_field :subject
     div
       div
-        = f.label :body, 'お問い合わせ内容'
+        = f.label :body, 'お問い合わせ内容', value: @body
       div
         = f.text_area :body
     = f.submit '送信'
