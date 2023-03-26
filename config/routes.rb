@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'pages#top'
   get 'admin', to: 'admin/pages#top'
+  get 'about_us', to: 'pages#about_us'
 
   resources :dishes
   resources :dish_articles

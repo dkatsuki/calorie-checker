@@ -1,0 +1,39 @@
+= render 'partials/header'
+sass:
+  #top_wrapper
+    div.header_point
+      margin-bottom: 1rem;
+    div.table
+      width: 80%;
+      div.row
+        border-bottom: solid 1px gray;
+        margin-bottom: 0.8rem;
+        display: flex;
+        > div
+           width: 50%;
+div#top_wrapper
+  div.header_point
+    p 運営者情報
+  div.table
+    div.row
+      div
+        p 会社名
+      div
+        p 株式会社Flavor
+    div.row
+      div
+        p コーポレートサイト
+      div
+        = link_to 'https://web-flavor.co.jp', 'https://web-flavor.co.jp', target: "_blank"
+    div.row
+      div
+        p 住所
+      div
+        p 東京都台東区蔵前3-1-12
+    div.row
+      div
+        p お問合せ
+      div
+        p
+          = link_to 'お問合せフォーム', 'https://web-flavor.co.jp', target: "_blank"
+          | からお願いします

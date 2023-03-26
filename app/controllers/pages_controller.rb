@@ -5,6 +5,9 @@ class PagesController < ApplicationController
     @basal_metabolic_rate_list = get_basal_metabolic_rate_list
   end
 
+  def abount_us
+  end
+
   private
     def get_basal_metabolic_rate_list
       [

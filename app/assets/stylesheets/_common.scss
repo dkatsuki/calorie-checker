@@ -11,35 +11,6 @@ table {
 	border: 1px solid $black;
 }
 
-.table {
-	> div {
-		display: flex;
-		justify-content: space-between;
-
-		> div {
-			flex-grow: 1;
-			padding: 0 4px;
-		}
-	}
-
-	> div:first-child {
-		> div {
-			background-color: black;
-			border: solid 2px $white;
-
-			> p {
-				color: white;
-			}
-		}
-	}
-
-	> div {
-		> div {
-			border: solid 2px $white;
-		}
-	}
-}
-
 .margin_0_auto {
 	margin: 0 auto;
 }

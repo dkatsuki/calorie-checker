@@ -4,11 +4,19 @@
 
 #top_wrapper {
   width: 710px;
-  margin: 20px auto;
+  margin: 0 auto;
 }
 
 div.data-tag {
   display: none;
+}
+
+.header_point {
+  border-left: 4px solid black;
+  padding-left: 0.2rem;
+  p {
+    font-size: 1.3rem;
+  }
 }
 
 @media (max-width: 768px) {
