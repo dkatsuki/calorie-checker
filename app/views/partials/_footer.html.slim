@@ -1,0 +1,30 @@
+sass:
+  div.footer
+    background-color: black;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    p, a
+      color: white;
+    > div
+      width: 710px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      > div
+        border-left: dashed 1px white;
+        width: 17%;
+        padding-left: 1rem;
+      > div:last-child
+        border-right: dashed 1px white;
+    @media (max-width: 768px)
+      > div
+        overflow-x: hidden;
+        width: 96vw;
+        margin: 0 auto;
+div.footer
+  div
+    div
+      = link_to '運営者情報', '/about_us'
+    div
+      = link_to 'お問合せ', '/contact'

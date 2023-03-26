@@ -5,6 +5,8 @@
 #top_wrapper {
   width: 710px;
   margin: 0 auto;
+  min-height: calc(100vh - 48px - 20px - 30px);
+  padding-bottom: 3rem;
 }
 
 div.data-tag {

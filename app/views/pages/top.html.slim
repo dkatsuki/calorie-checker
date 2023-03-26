@@ -1,5 +1,4 @@
 - each_page_stylesheet_link_tag("default_article")
-= render 'partials/header'
 sass:
   div.dish_index_part
     padding-bottom: 1rem;
@@ -13,6 +12,7 @@ sass:
       .records_container
         a:nth-last-child(-n+2)
           display: none;
+= render 'partials/header'
 main#top_wrapper
   div.dish_index_part
     = render 'dishes/index'
@@ -152,3 +152,4 @@ main#top_wrapper
                 th = row.shift
                 - row.each do |value|
                   td = value
+= render 'partials/footer'
