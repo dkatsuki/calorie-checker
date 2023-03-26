@@ -1,0 +1,49 @@
+sass:
+  #top_wrapper
+    div.header_point
+      margin-bottom: 1rem;
+    form
+      > input[type="submit"]
+        background-color: black;
+        color: white;
+        width: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      > div
+        width: 100%;
+        margin-top: 1rem;
+        > div
+          width: 100%;
+          > input
+            width: 40%;
+          > textarea
+            width: 50%;
+            height: 30vh;
+= render 'partials/header'
+div#top_wrapper
+  div.header_point
+    p お問合せ
+  = form_with url: contact_path, method: :post, local: true do |f|
+    div
+      div
+        = f.label :name, 'お名前'
+      div
+        = f.text_field :name
+    div
+      div
+        = f.label :email, 'メールアドレス'
+      div
+        = f.email_field :email
+    div
+      div
+        = f.label :subject, '件名'
+      div
+        = f.text_field :subject
+    div
+      div
+        = f.label :body, 'お問い合わせ内容'
+      div
+        = f.text_area :body
+    = f.submit '送信'
+= render 'partials/footer'

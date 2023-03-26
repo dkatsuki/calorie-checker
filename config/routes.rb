@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   get 'admin', to: 'admin/pages#top'
   get 'about_us', to: 'pages#about_us'
 
+  get 'contact', to: 'contacts#new'
+  post 'contact', to: 'contacts#create'
+
   resources :dishes
+  resources :contact
   resources :dish_articles
   resources :foodstuffs
   resources :recipes
