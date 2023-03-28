@@ -24,6 +24,15 @@ article.default-article {
     }
   }
 
+  table {
+    margin: 2rem auto;
+    border-collapse: collapse;
+    width: 80%;
+    td {
+      border-right: none;
+    }
+  }
+
   @media (max-width: 768px) {
     .table-of-contents {
       width: 90%;

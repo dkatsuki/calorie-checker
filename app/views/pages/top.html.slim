@@ -7,6 +7,9 @@ sass:
       margin-top: 8px;
   article.default-article
     margin-top: 24px;
+    table
+      th
+        text-align: left;
   @media (max-width: 768px)
     .dishes_index
       .records_container
@@ -26,14 +29,14 @@ main#top_wrapper
           p 目次
         ol
           li
-            a そもそもカロリーとは？
+            = link_to 'そもそもカロリーとは？', { anchor: "header-1" }
           li
-            a ダイエットとどの様に関係するか？
+            = link_to 'ダイエットとどの様に関係するか？', { anchor: "header-2" }
           li
-            a どのくらいカロリーを摂ればやせる？太る？
+            = link_to 'どのくらいカロリーを摂ればやせる？太る？', { anchor: "header-3" }
     section
       div
-        h2 そもそもカロリーとは？
+        h2 id="header-1" そもそもカロリーとは？
       div
         p
           | 「カロリー」とはエネルギーの単位です。1リットルの水の温度を1度上げるために必要なエネルギーが1kcalです。<br>
@@ -61,7 +64,7 @@ main#top_wrapper
           | 例えば、低糖質や低炭水化物といった言葉は「ローカーボ」と言われたりしますが、これは「low carbohydrate」から来ています。<br>
     section
       div
-        h2 ダイエットとどの様に関係するか？
+        h2 id="header-2" ダイエットとどの様に関係するか？
       div
         p
           | 先ほども少し触れましたが、理論上は摂取カロリーよりも消費カロリーが大きくなれば人間は痩せていきます。<br>
@@ -119,7 +122,7 @@ main#top_wrapper
           | もちろんこれはある程度簡略化した話しであり、実際には体内の水分量などにも影響されるので注意が必要ですが、概ねこの様に考えておいて問題はないでしょう。<br>
     section
       div
-        h2 どのくらいカロリーを摂ればやせる？太る？
+        h2 id="header-3" どのくらいカロリーを摂ればやせる？太る？
       div
         p
           | 既に基本的な体重の増減とカロリーの仕組みについては前の項で述べてしまいましたので、
@@ -150,6 +153,8 @@ main#top_wrapper
             - @basal_metabolic_rate_list.each do |row|
               tr
                 th = row.shift
-                - row.each do |value|
-                  td = value
+                td = "#{row[0]}kg"
+                td = "#{row[1]}kcal"
+                td = "#{row[2]}kg"
+                td = "#{row[3]}kcal"
 = render 'partials/footer'

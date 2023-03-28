@@ -62,10 +62,23 @@ a {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-	border: 1px black solid;
+
 	td, th {
-		border: 1px black solid;
-		padding: 4px;
+		border-bottom: 1px black solid;
+	}
+
+	thead {
+		tr {
+			td, th {
+				border-bottom: 1px solid lightGray;
+			}
+		}
+
+		tr:last-child {
+			td, th {
+				border-bottom: 1px solid black;
+			}
+		}
 	}
 }
 textarea {
