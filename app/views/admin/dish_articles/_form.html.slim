@@ -1,7 +1,5 @@
 - each_page_stylesheet_link_tag("admin/form")
 - each_page_javascript_import_tag("utility")
-javascript:
-  window
 sass:
   .article_editor
     width: 100%;
@@ -18,6 +16,7 @@ sass:
 javascript:
   const setDishSelectSearch = () => {
     const searchWordBox = document.querySelector(".dish_search_word_box");
+    if (!searchWordBox) { return; }
     searchWordBox.onchange = (event) => {
       const createOptionElement = (value, text) => {
         const option = document.createElement("option");
