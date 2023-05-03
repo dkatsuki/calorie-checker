@@ -11,11 +11,11 @@
 class ChatGpt
 
   DEFAULT_MODEL = 'gpt-3.5-turbo'
-  DEFAULT_TEMPERATURE = 0.5
+  DEFAULT_TEMPERATURE = 0.7
   CONTINUE_MESSAGE = '続けてください'
 
   attr_accessor :model, :temperature
-  attr_reader :history
+  attr_reader :history, :stashed_history
 
   def initialize(model: DEFAULT_MODEL, temperature: DEFAULT_TEMPERATURE)
     @model = DEFAULT_MODEL
@@ -23,6 +23,7 @@ class ChatGpt
     @continue_message = CONTINUE_MESSAGE
     @client = OpenAI::Client.new
     @history = []
+    @stashed_history = []
   end
 
   def get_parameters
@@ -31,19 +32,6 @@ class ChatGpt
       messages: @history,
       temperature: @temperature,
     }
-  end
-
-  def request(content)
-    @history << { 'role' => 'user', 'content' => content }
-    response = @client.chat(parameters: self.get_parameters)
-    result = JSON.parse(response.body)
-    choice = result['choices'].first
-    @history << choice['message']
-    choice
-  end
-
-  def continue_chat
-    self.request(@continue_message)
   end
 
   def remove_continue_message_from_history
@@ -60,7 +48,7 @@ class ChatGpt
     result = choice['message']['content']
 
     while finish_reason == 'length'
-      choice = self.continue_chat
+      choice = continue_chat
       finish_reason = choice['finish_reason']
       return false if (finish_reason.blank? || finish_reason == 'null' || finish_reason == 'content_filter')
       result += choice['message']['content']
@@ -70,4 +58,32 @@ class ChatGpt
 
     result
   end
+
+  def clear_history
+    @history = []
+  end
+
+  def stash_history
+    return false if @history.blank?
+    @stashed_history << [@history.dup]
+    @history = []
+  end
+
+  private
+    def request(content)
+      begin
+        @history << { 'role' => 'user', 'content' => content }
+        response = @client.chat(parameters: self.get_parameters)
+        result = JSON.parse(response.body)
+        choice = result['choices'].first
+        @history << choice['message']
+        choice
+      rescue => exception
+        binding.pry
+      end
+    end
+
+    def continue_chat
+      request(@continue_message)
+    end
 end
