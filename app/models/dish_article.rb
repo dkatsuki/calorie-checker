@@ -140,7 +140,7 @@ class DishArticle < ApplicationRecord
     end
 
     order_text = self.get_article_part_order_text(target_header)
-    response = gpt.chat(order_text)
+    response = @gpt.chat(order_text)
   end
 
   def order_article
