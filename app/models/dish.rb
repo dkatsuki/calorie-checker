@@ -7,7 +7,7 @@ class Dish < ApplicationRecord
 		"料理": 0, "食材": 1, "既製品": 2,
 	}, _prefix: true
 
-  has_many :recipes, autosave: true
+  has_many :recipes, autosave: true, dependent: :destroy
   has_many :foodstuffs, through: :recipes
   has_one :article, class_name: "DishArticle"
 	accepts_nested_attributes_for :recipes
