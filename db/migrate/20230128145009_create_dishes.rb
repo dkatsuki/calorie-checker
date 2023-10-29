@@ -11,6 +11,7 @@ class CreateDishes < ActiveRecord::Migration[7.0]
       t.float :fat, null: false
       t.float :protein, null: false
       t.float :sugar, null: false
+      t.boolean :is_open, null: false, default: false
       t.timestamps
     end
   end

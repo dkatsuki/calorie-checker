@@ -26,6 +26,8 @@ class Dish < ApplicationRecord
 	def self.search(params)
 		query = self.all
 
+		query = query.where(is_open: true) if params[:is_open].blank?
+
 		if params[:name].present?
 			query = query.where('name LIKE ?', "%#{sanitize_sql_like(params[:name].to_s)}%")
 		end

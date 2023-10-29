@@ -34,6 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_05_081542) do
     t.float "fat", null: false
     t.float "protein", null: false
     t.float "sugar", null: false
+    t.boolean "is_open", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
