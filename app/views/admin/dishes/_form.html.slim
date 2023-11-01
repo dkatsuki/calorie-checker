@@ -17,6 +17,11 @@ div.width_80percent.margin_0_auto
         = f.text_field :ruby, value: @record.ruby
     div
       div
+        = f.label :is_open, "公開する"
+      div
+        = f.check_box :is_open
+    div
+      div
         = f.label '単位'
       div
         = f.text_field :unit, value: @record.unit

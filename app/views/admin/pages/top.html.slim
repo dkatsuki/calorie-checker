@@ -1,4 +1,4 @@
 div.width_80percent.margin_0_auto
 	h1 Admin::Pages#top
 	- @table_names.each_with_index do |table_name, i|
-		div = link_to "#{@models[i].japanese_name}一覧", "/admin/#{table_name.pluralize}"
+		div = link_to "#{@models[i].japanese_name}一覧", { controller: "admin/#{table_name.pluralize}", is_open: true }
