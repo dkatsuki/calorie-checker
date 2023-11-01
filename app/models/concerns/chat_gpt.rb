@@ -11,7 +11,7 @@
 class ChatGpt
   DEFAULT_MODEL = 'gpt-3.5-turbo'
   # DEFAULT_MODEL = 'gpt-4'
-  DEFAULT_TEMPERATURE = 0.7
+  DEFAULT_TEMPERATURE = 0.4
   CONTINUE_MESSAGE = '続けてください'
 
   attr_accessor :model, :temperature
