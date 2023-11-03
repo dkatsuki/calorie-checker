@@ -77,6 +77,10 @@ class DishArticle < ApplicationRecord
       },
       {
         tag_name: 'h3',
+        text: "どれくらい保存できるか、賞味期限は？"
+      },
+      {
+        tag_name: 'h3',
         text: "特有の注意事項（アレルギー、成分など）"
       },
       {
