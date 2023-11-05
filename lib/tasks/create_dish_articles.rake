@@ -5,7 +5,7 @@ namespace :dish_articles do
 
     dishes.find_each do |dish|
       dish.build_article
-      dish.article.body = dish.article.order_article
+      dish.article.body = dish.article.generate_article
       dish.article.save
     end
   end

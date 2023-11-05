@@ -131,7 +131,7 @@ class DishArticle < ApplicationRecord
     EOS
   end
 
-  def order_article_part(target_header)
+  def generate_article_part(target_header)
     if @gpt.blank?
       @gpt = ChatGpt.new
     else
@@ -143,13 +143,13 @@ class DishArticle < ApplicationRecord
     response
   end
 
-  def order_article_by_parts
+  def generate_article_by_parts
     target_header_text_list = self.get_default_headers.map do |header_data|
       header_data[:tag_name] == 'h3' ? header_data[:text] : nil
     end.compact
 
     target_header_text_list.inject('') do |result, target_header_text|
-      result + "#{self.order_article_part(target_header_text)}\n\n"
+      result + "#{self.generate_article_part(target_header_text)}\n\n"
     end
   end
 
@@ -177,7 +177,7 @@ class DishArticle < ApplicationRecord
     EOS
   end
 
-  def order_article
+  def generate_article
     if @gpt.blank?
       @gpt = ChatGpt.new
     else
