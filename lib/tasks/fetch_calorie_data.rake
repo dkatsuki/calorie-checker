@@ -12,4 +12,10 @@ namespace :fetch_calorie_data do
     fetcher = CalorieDataFetcher.new
     fetcher.scrape_htmls
   end
+
+  desc "スクレイピング"
+  task :insert_to_foodstuff => :environment do
+    fetcher = CalorieDataFetcher.new
+    fetcher.insert_to_foodstuff
+  end
 end

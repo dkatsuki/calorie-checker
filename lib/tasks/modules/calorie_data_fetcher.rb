@@ -58,6 +58,10 @@ class CalorieDataFetcher
       'carbohydrate_per_unit',
       'fat_per_unit',
       'protein_per_unit',
+      'sugar_per_100gram',
+      'carbohydrate_per_100gram',
+      'fat_per_100gram',
+      'protein_per_100gram',
     ]
 
     CSV.open(result_path, 'w') do |csv|
@@ -72,6 +76,49 @@ class CalorieDataFetcher
         csv << headers.map { |header| food_data[header.to_sym] }
       end
     end
+  end
+
+  def insert_to_foodstuff
+    path = Rails.root.to_s + '/tmp/calorie_data.csv'
+
+    CSV.foreach(path, headers: true) do |row|
+      foodstuff = Foodstuff.new
+
+      foodstuff.name = row['name']
+
+      category = case row['category']
+        when 'いも・でん粉'
+          'いも'
+        when '砂糖・甘味'
+          '甘味'
+        when '豆・種実'
+          '豆/種'
+        when '飲料・酒'
+          '飲料/酒'
+        when '調味料・香辛料・油'
+          '調味料/油/スパイス'
+        when '魚介類'
+          '魚介'
+        when '乳製品・卵'
+          '乳製品/卵'
+        else
+          row['category']
+      end
+
+      foodstuff.category = category
+      foodstuff.is_pure = true
+      foodstuff.calorie = row['per_100gram_calorie']
+      foodstuff.carbohydrate = row['carbohydrate_per_100gram']
+      foodstuff.fat = row['fat_per_100gram']
+      foodstuff.protein = row['protein_per_100gram']
+      foodstuff.sugar = row['sugar_per_100gram']
+      foodstuff.add_unit(row['unit_name'], row['unit_gram'])
+      if foodstuff.save
+      else
+        binding.pry
+      end
+    end
+
   end
 
   private

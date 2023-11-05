@@ -29,7 +29,7 @@ class Foodstuff < ApplicationRecord
     '魚介' => 10,
     '肉' => 11,
     '乳製品/卵' => 12,
-    '調味料/油' => 13,
+    '調味料/油/スパイス' => 13,
     '飲料/酒' => 14,
 	}, _prefix: true
 
@@ -78,6 +78,18 @@ class Foodstuff < ApplicationRecord
     self.unit_list.first.first
   end
 
+  def main_unit
+    @main_unit ||= self.get_main_unit
+  end
+
+  def add_unit(unit_name, gram_weight)
+    self.unit_list[unit_name] = gram_weight
+  end
+
+  def remove_unit(unit_name)
+    self.unit_list.delete(unit_name)
+  end
+
   def create_or_update_dish
     unit = self.get_main_unit
     dish_attributes = {
@@ -96,10 +108,6 @@ class Foodstuff < ApplicationRecord
     nutrition_name = nutrition_name.to_s
     gram = gram_or_unit.is_a?(Float) ? gram_or_unit : self.unit_list[gram_or_unit]
     self.send(nutrition_name) * (gram / 100.0)
-  end
-
-  def retouch_images
-
   end
 
   def retouch_image(image_path)
