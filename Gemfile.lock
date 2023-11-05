@@ -1454,6 +1454,7 @@ GEM
     debug (1.7.1)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
+    deepl-rb (2.5.3)
     erubi (1.12.0)
     ffi (1.15.5)
     foreman (0.87.2)
@@ -1627,6 +1628,7 @@ DEPENDENCIES
   bootsnap
   capybara
   debug
+  deepl-rb
   foreman
   html2slim
   importmap-rails
