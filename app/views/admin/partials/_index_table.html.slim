@@ -19,6 +19,10 @@ div.width_80percent.margin_0_auto
             p 削除ボタン
           th
             p 編集ボタン
+          - if local_assigns.has_key?(:custom_columns) && custom_columns.present?
+            - custom_columns.each do |column|
+              th
+                p = column[:name]
       tbody
         - records.each do |record|
           tr
@@ -29,3 +33,7 @@ div.width_80percent.margin_0_auto
               = link_to '削除', "/admin/#{controller.controller_name}/#{record.id}", data: { turbo_method: :delete, turbo_confirm: 'Are you sure to delete?' }
             td
               = link_to '編集', "/admin/#{controller.controller_name}/#{record.id}/edit"
+            - if local_assigns.has_key?(:custom_columns) && custom_columns.present?
+              - custom_columns.each do |column|
+                td
+                  = render partial: column[:partial_name], locals: {record: record}
