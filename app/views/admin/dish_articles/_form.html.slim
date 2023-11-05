@@ -14,6 +14,20 @@ sass:
     > div:last-child
       border: 1px solid gray;
 javascript:
+  const setGenerateArticleBody = () => {
+    const generateArticleBody = (event) => {
+      event.preventDefault();
+      const selectBox = document.querySelector("select.dish_select_box");
+      const callback = (response) => {
+        const textarea = document.querySelector(".article_editor textarea");
+        textarea.value = response.article_body;
+      }
+      window.ajax.post(callback, "/admin/dish_articles/generate_article", {dish_id: selectBox.value});
+    }
+    const selectBox = document.querySelector("select.dish_select_box");
+    const generateButton = document.querySelector("#generate_article");
+    generateButton.onclick = generateArticleBody;
+  }
   const setDishSelectSearch = () => {
     const searchWordBox = document.querySelector(".dish_search_word_box");
     if (!searchWordBox) { return; }
@@ -43,7 +57,6 @@ javascript:
       window.ajax.get(callback, "/dishes", query);
     }
   }
-
   const setFetchParsedMarkDown = () => {
     const textarea = document.querySelector(".article_editor textarea");
     const callback = (response) => {
@@ -62,6 +75,7 @@ javascript:
   window.addEventListener('turbo:load', () => {
     setDishSelectSearch();
     setFetchParsedMarkDown();
+    setGenerateArticleBody();
   });
 
 - is_new = page_title == "料理記事新規作成"
@@ -82,6 +96,9 @@ div.width_80percent.margin_0_auto
       - else
         div
           p = @record.dish.name
+    div
+      div
+        button id="generate_article" 記事生成
     div
       div
         = f.label '記事内容'
