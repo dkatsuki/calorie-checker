@@ -99,7 +99,7 @@ class Foodstuff < ApplicationRecord
       main_image_key: self.main_image_key
     }
     dish = self.get_association_class(:dishes).find_or_initialize_by(dish_attributes)
-    dish.recipes.delete_a;;
+    dish.recipes.delete_all
     dish.recipes.build(foodstuff_id: self.id, unit: unit)
     dish.save
   end
