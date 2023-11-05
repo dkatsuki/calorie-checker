@@ -43,9 +43,6 @@ class Foodstuff < ApplicationRecord
   }
 
   after_initialize do
-    self.unit_list.each do |k,v|
-      self.unit_list[k] = v.to_i
-    end
   end
 
   def self.nutrition_name_list
@@ -82,8 +79,20 @@ class Foodstuff < ApplicationRecord
     @main_unit ||= self.get_main_unit
   end
 
+  def get_main_unit_gram
+    self.unit_list.first.last
+  end
+
+  def main_unit_gram
+    @main_unit_gram ||= self.get_main_unit_gram
+  end
+
   def add_unit(unit_name, gram_weight)
-    self.unit_list[unit_name] = gram_weight
+    self.unit_list[unit_name] = gram_weight.to_f
+  end
+
+  def get_unit_gram(unit_name)
+    self.unit_list[unit_name.to_s]
   end
 
   def remove_unit(unit_name)
@@ -100,7 +109,7 @@ class Foodstuff < ApplicationRecord
     }
     dish = self.get_association_class(:dishes).find_or_initialize_by(dish_attributes)
     dish.recipes.delete_all
-    dish.recipes.build(foodstuff_id: self.id, unit: unit)
+    dish.recipes.build(foodstuff_id: self.id, unit: unit, gram_weight: self.main_unit_gram) # ココ！
     dish.save
   end
 
