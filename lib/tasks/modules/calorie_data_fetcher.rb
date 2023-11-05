@@ -113,10 +113,7 @@ class CalorieDataFetcher
       foodstuff.protein = row['protein_per_100gram']
       foodstuff.sugar = row['sugar_per_100gram']
       foodstuff.add_unit(row['unit_name'], row['unit_gram'])
-      if foodstuff.save
-      else
-        binding.pry
-      end
+      foodstuff.save
     end
 
   end
