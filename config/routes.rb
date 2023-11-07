@@ -13,8 +13,14 @@ Rails.application.routes.draw do
   resources :recipes
 
   namespace :admin do
-    resources :foodstuffs
-    resources :dishes
+    resources :foodstuffs do
+      post :generate_image, on: :collection
+    end
+
+    resources :dishes do
+      post :generate_image, on: :member
+    end
+
     resources :dish_articles do
       post :parse_markdown, on: :collection
       post :generate_article, on: :collection, defaults: { format: 'json' }

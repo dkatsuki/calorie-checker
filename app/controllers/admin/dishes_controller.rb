@@ -5,6 +5,16 @@ class Admin::DishesController < Admin::ApplicationController
     @foodstuffs = self.model.get_association_class(:foodstuffs).all
   end
 
+  def generate_image
+    # flash.now[:messages] = params[:flash]&.[](:messages)
+    # @records = self.model.search(params)
+
+    respond_to do |format|
+      format.html
+      format.json { render json: {test: 1} }
+    end
+  end
+
   private
     def strong_parameters
       result = params.require(:dish).permit([

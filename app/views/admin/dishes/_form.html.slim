@@ -1,4 +1,21 @@
 - each_page_stylesheet_link_tag("admin/form")
+- each_page_javascript_import_tag("utility")
+javascript:
+  const record_id = #{j @record&.id};
+  const setGenerateImage = () => {
+    const generateImage = (event) => {
+      event.preventDefault();
+      const callback = (response) => {
+        console.log(response)
+      }
+      window.ajax.post(callback, `/admin/dishes/${record_id}/generate_image`);
+    }
+    const generateButton = document.querySelector("#generate_image_button");
+    generateButton.onclick = generateImage;
+  }
+  window.addEventListener('turbo:load', () => {
+    setGenerateImage();
+  });
 div.width_80percent.margin_0_auto
   h1 = page_title
   = link_to "一覧に戻る", '/admin/dishes'
@@ -59,4 +76,10 @@ div.width_80percent.margin_0_auto
       div
         = f.file_field :main_image_key
       = render partial: 'admin/dishes/recipes_form', locals: {form: f}
-    = f.submit controller.action_name == 'new' ? '作成する' : '更新する'
+    - if page_title == "料理更新"
+      div
+        div
+          = f.label '画像生成'
+        div
+          button id="generate_image_button" 画像生成
+      = f.submit controller.action_name == 'new' ? '作成する' : '更新する'

@@ -32,7 +32,7 @@ class Ajax {
     xhr.send();
   };
 
-  post = (callback, requestPath, data) => {
+  post = (callback, requestPath, data= {}) => {
     const xhr = this.newXhr();
     xhr.open('POST', requestPath + '.json');
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
