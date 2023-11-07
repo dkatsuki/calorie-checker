@@ -6,12 +6,11 @@ class Admin::DishesController < Admin::ApplicationController
   end
 
   def generate_image
-    # flash.now[:messages] = params[:flash]&.[](:messages)
-    # @records = self.model.search(params)
+    @record = Dish.find(params[:id])
 
     respond_to do |format|
       format.html
-      format.json { render json: {test: 1} }
+      format.json { render json: {image: @record.generate_image} }
     end
   end
 
