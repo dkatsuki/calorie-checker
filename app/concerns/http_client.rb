@@ -1,19 +1,14 @@
 class HttpClient
-	attr_accessor :default_origin
+	attr_accessor :headers, :default_origin
 
 	def initialize(default_origin: nil, headers: {})
 		@default_origin = default_origin
 		@headers = headers
 	end
 
-	def parse(page_source, charset: 'utf-8')
-		Nokogiri::HTML.parse(page_source, nil, charset)
-	end
-
 	def get(target_url, limit = 10)
 		set_http_client(target_url)
 		response = @http_client.get(@uri.request_uri, @headers)
-
 		case response
 		when Net::HTTPSuccess
 			response
@@ -28,6 +23,20 @@ class HttpClient
 		set_http_client(target_url)
 		response = @http_client.post(@uri.request_uri, format_post_data(data), @headers)
 		response.is_a?(Net::HTTPSuccess) ? response : nil
+	end
+
+	def parse_html(page_source, charset: 'utf-8')
+		Nokogiri::HTML.parse(page_source, nil, charset)
+	end
+
+	def get_html(target_url, charset: 'utf-8')
+		response = get(target_url)
+		parse(response.body, charset: charset)
+	end
+
+	def get_image(image_source)
+		response = get(image_source)
+		response&.body
 	end
 
 	private
