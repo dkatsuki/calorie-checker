@@ -186,7 +186,10 @@ class DishArticle < ApplicationRecord
     end
 
     order_text = self.get_article_order_text
+    deep_l = DeepLClient.new
+    order_text = deep_l.to_english(order_text)
     response = @gpt.chat(order_text)
+    response = deep_l.to_japanese(response)
     response
   end
 
