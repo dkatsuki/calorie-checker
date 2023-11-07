@@ -1,7 +1,18 @@
+require 'uri'
+
 class Expantion
 end
 
 class String
+  def url?
+    begin
+      uri = URI.parse(self)
+      %w(http https).include?(uri.scheme)
+    rescue URI::InvalidURIError
+      false
+    end
+  end
+
 	def date_format?
 		begin
 			!!Date.parse(self)
@@ -52,8 +63,8 @@ class String
 		return self.dup if self.blank?
 		str = self.to_half_width
 		str = str.downcase
-		str = self.remove_symbolic_character
-		str = self.hiragana_to_katakana
+		str = str.remove_symbolic_character
+		str = str.hiragana_to_katakana
 		str.strip
 	end
 
