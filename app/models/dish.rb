@@ -117,4 +117,12 @@ class Dish < ApplicationRecord
 			end
     end
   end
+
+	def generate_image(response_format = 'b64_json')
+    deep_l = DeepLClient.new
+		english_name = deep_l.to_english(self.name)
+    dall_e = DallE.new
+    prompt = "#{english_name}, on a white porcelain plate, taken from a front-facing, 30-degree elevated angle"
+    dall_e.generate_image(prompt, size: 256, response_format: response_format)
+	end
 end
