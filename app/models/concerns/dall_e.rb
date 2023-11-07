@@ -23,7 +23,7 @@ class DallE
     @http = HttpClient.new
   end
 
-  def generate_image(prompt, size: 256, response_format: 'b64_json') # response_format: 'url' or ''b64_json''
+  def generate_image(prompt, size: 256, response_format: 'url') # response_format: 'url' or ''b64_json''
     response = @client.images.generate(parameters: {
       prompt: prompt,
       size: "#{size}x#{size}",
@@ -34,12 +34,8 @@ class DallE
       return response
     end
 
-    if response_format == 'b64_json'
-      base64_string = response.dig('data', 0, response_format)
-      binary = Base64.decode64(base64_string)
-      path = write_image(binary)
-    elsif response_format == 'url'
-      url = response.dig('data', 0, response_format)
+    if response_format == 'b64_json' || response_format == 'url'
+      response.dig('data', 0, response_format)
     else
       response
     end
