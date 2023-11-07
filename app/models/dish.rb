@@ -56,7 +56,7 @@ class Dish < ApplicationRecord
 			query = query.order(key => order)
 		end
 
-		limit = params[:limit].present? ? params[:limit].to_i : 100
+		limit = params[:limit].present? ? params[:limit].to_i : 10000
 		query = query.limit(limit)
 
 		if params[:page].present?

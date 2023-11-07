@@ -2,15 +2,32 @@
 - each_page_javascript_import_tag("utility")
 javascript:
   const record_id = #{j @record&.id};
+  const downloadImage = (base_64, filename = "image.png") => {
+    const a = document.createElement('a');
+    a.href = `data:image/png;base64,${base_64}`;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
   const setGenerateImage = () => {
+    const getGenerateButton = () => {
+      return document.querySelector("#generate_image_button");
+    }
+
     const generateImage = (event) => {
       event.preventDefault();
       const callback = (response) => {
-        console.log(response)
+        const generateButton = getGenerateButton();
+        const img = document.querySelector("#image-preview");
+        img.src= `data:image/png;base64,${response.image}`;
+        extention = response.extention;
+        downloadImage(response.image, `image.${extention}`);
       }
       window.ajax.post(callback, `/admin/dishes/${record_id}/generate_image`);
     }
-    const generateButton = document.querySelector("#generate_image_button");
+    const generateButton = getGenerateButton();
     generateButton.onclick = generateImage;
   }
   window.addEventListener('turbo:load', () => {
@@ -82,4 +99,6 @@ div.width_80percent.margin_0_auto
           = f.label '画像生成'
         div
           button id="generate_image_button" 画像生成
+      div
+        img#image-preview
       = f.submit controller.action_name == 'new' ? '作成する' : '更新する'

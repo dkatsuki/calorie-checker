@@ -23,7 +23,7 @@ class DallE
     @http = HttpClient.new
   end
 
-  def generate_image(prompt, size: 256, response_format: 'url') # response_format: 'url' or ''b64_json''
+  def generate_image(prompt, size: 1024, response_format: 'url') # response_format: 'url' or ''b64_json''
     response = @client.images.generate(parameters: {
       prompt: prompt,
       size: "#{size}x#{size}",
@@ -41,12 +41,12 @@ class DallE
     end
   end
 
-  def generate_images(prompt, size: 256, n:2)
+  def generate_images(prompt, size: 1024, n:2)
     response = @client.images.generate(parameters: { prompt: prompt, size: "#{size}x#{size}", n: n })
     response['data'].map { |data| data['url'] }
   end
 
-  def generate_and_save_image(prompt, size: 256)
+  def generate_and_save_image(prompt, size: 1024)
     url = self.generate_image(prompt, size: size)
     path = download_and_save_image(url)
     path

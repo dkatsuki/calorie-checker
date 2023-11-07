@@ -10,7 +10,7 @@ class Admin::DishesController < Admin::ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: {image: @record.generate_image} }
+      format.json { render json: {image: @record.generate_image, extention: 'png'} }
     end
   end
 
