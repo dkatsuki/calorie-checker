@@ -30,8 +30,27 @@ javascript:
     const generateButton = getGenerateButton();
     generateButton.onclick = generateImage;
   }
+
+  const setCurrentImage = () => {
+    const currentImage = document.querySelector("#current_image");
+    const fileInput = document.querySelector("#upload_image");
+
+    fileInput.onchange = (event) => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        console.log(event.target.result)
+        currentImage.src = event.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    };
+  }
+
   window.addEventListener('turbo:load', () => {
     setGenerateImage();
+    setCurrentImage();
   });
 div.width_80percent.margin_0_auto
   h1 = page_title
@@ -89,9 +108,12 @@ div.width_80percent.margin_0_auto
         = f.label 'レシピ'
     div
       div
-        = f.label 'メイン画像'
+        = f.label :main_image_key, 'メイン画像'
       div
-        = f.file_field :main_image_key
+        = f.file_field :main_image_key, id: 'upload_image'
+      div
+        p 現在の画像
+        = image_tag @record.image_source, id: 'current_image'
       = render partial: 'admin/dishes/recipes_form', locals: {form: f}
     - if page_title == "料理更新"
       div
