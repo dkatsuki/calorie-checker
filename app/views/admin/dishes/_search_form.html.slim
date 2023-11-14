@@ -8,6 +8,8 @@ sass:
       color: white;
       padding: 0 0.2rem;
 = form_with url: '/admin/dishes', method: :get, local: true, class: 'search_form' do |f|
+  = f.hidden_field 'is_open[]', value: true
+  = f.hidden_field 'is_open[]', value: false
   div
     = f.label :name, '料理名'
     = f.text_field :name
