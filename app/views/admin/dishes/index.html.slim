@@ -1,1 +1,4 @@
-= render partial: 'admin/partials/index_table', locals: { records: @records }
+= render partial: 'admin/partials/index_table', locals: { \
+  records: @records, \
+  search_form_partial: 'admin/dishes/search_form' \
+}

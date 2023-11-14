@@ -6,6 +6,8 @@ div.width_80percent.margin_0_auto
     = link_to "管理画面トップ", "/admin"
   div
     = link_to "#{controller.model.japanese_name}新規作成", "/admin/#{controller.controller_name}/new"
+  - if local_assigns.has_key?(:search_form_partial)
+    = render partial: search_form_partial
   - if records.blank?
     p レコードはありません
   - else

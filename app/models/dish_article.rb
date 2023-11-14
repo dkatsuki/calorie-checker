@@ -11,6 +11,41 @@ class DishArticle < ApplicationRecord
     def japanese_name
       @@japanese_name
     end
+
+    def search(params)
+      query = self.all
+
+      if params[:dish]&.[](:name).present?
+        query = query.eager_load(:dish) unless query.eager_load_values.include?(:dishes)
+        query = query.where('dishes.name LIKE ?', "%#{sanitize_sql_like(params[:dish][:name].to_s)}%")
+      end
+
+      sort_options = []
+
+      if params[:sort].is_a? Array
+        sort_options = params[:sort]
+      elsif params[:sort]&.[](:key).present? && params[:sort]&.[](:order).present?
+        sort_options = [params[:sort]]
+      end
+
+      sort_options << {key: :id, order: :asc} if sort_options.present?
+
+      sort_options.each do |sort_option|
+        key = sort_option[:key].to_sym
+        order = sort_option[:order].to_sym
+        query = query.order(key => order)
+      end
+
+      limit = params[:limit].present? ? params[:limit].to_i : 10000
+      query = query.limit(limit)
+
+      if params[:page].present?
+        page = params[:page].to_i
+        query = query.offset(limit * (page - 1)) if page != 0
+      end
+
+      query
+    end
   end
 
   def body=(value)

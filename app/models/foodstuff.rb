@@ -53,6 +53,40 @@ class Foodstuff < ApplicationRecord
     @@japanese_name
   end
 
+  def self.search(params)
+    query = self.all
+
+    if params[:name].present?
+      query = query.where('name LIKE ?', "%#{sanitize_sql_like(params[:name].to_s)}%")
+    end
+
+    sort_options = []
+
+    if params[:sort].is_a? Array
+      sort_options = params[:sort]
+    elsif params[:sort]&.[](:key).present? && params[:sort]&.[](:order).present?
+      sort_options = [params[:sort]]
+    end
+
+    sort_options << {key: :id, order: :asc} if sort_options.present?
+
+    sort_options.each do |sort_option|
+      key = sort_option[:key].to_sym
+      order = sort_option[:order].to_sym
+      query = query.order(key => order)
+    end
+
+    limit = params[:limit].present? ? params[:limit].to_i : 10000
+    query = query.limit(limit)
+
+    if params[:page].present?
+      page = params[:page].to_i
+      query = query.offset(limit * (page - 1)) if page != 0
+    end
+
+    query
+  end
+
   def name=(value)
 		self.ruby = value.to_consistent if self.ruby.blank?
 		self.write_attribute(:name, value)

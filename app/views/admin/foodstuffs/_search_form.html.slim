@@ -1,0 +1,14 @@
+sass:
+  .search_form
+    margin: 1rem 0;
+    border: 1px solid gray;
+    padding: 1rem;
+    input[type="submit"]
+      background-color: black;
+      color: white;
+      padding: 0 0.2rem;
+= form_with url: '/admin/foodstuffs', method: :get, local: true, class: 'search_form' do |f|
+  div
+    = f.label :name, '料理名'
+    = f.text_field :name
+  = f.submit '送信'
