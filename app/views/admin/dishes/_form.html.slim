@@ -1,5 +1,8 @@
 - each_page_stylesheet_link_tag("admin/form")
 - each_page_javascript_import_tag("utility")
+sass:
+  img
+    width: 60%;
 javascript:
   const record_id = #{j @record&.id};
   const downloadImage = (base_64, filename = "image.png") => {
@@ -40,7 +43,6 @@ javascript:
       const reader = new FileReader();
 
       reader.onload = (event) => {
-        console.log(event.target.result)
         currentImage.src = event.target.result;
       };
 
@@ -72,7 +74,7 @@ div.width_80percent.margin_0_auto
       div
         = f.label :is_open, "公開する"
       div
-        = f.check_box :is_open
+        = f.check_box :is_open, checked: @record.is_open
     div
       div
         = f.label '単位'

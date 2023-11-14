@@ -6,6 +6,7 @@
 require 'base64'
 
 class DallE
+  DEFAULT_MODEL = 'dall-e-3'
   attr_accessor :api_key
   attr_reader :client, :http
   @@tmp_storage = Rails.root.to_s + '/tmp/dall_e'
@@ -21,12 +22,36 @@ class DallE
   def initialize
     @client = OpenAI::Client.new
     @http = HttpClient.new
+    @model = DEFAULT_MODEL
   end
 
-  def generate_image(prompt, size: 1024, response_format: 'url') # response_format: 'url' or ''b64_json''
+
+  ## 利用可能なサイズの組み合わせ
+  # ['256x256', '512x512', '1024x1024', '1024x1792', '1792x1024']
+  def generate_image(prompt, size: :small, response_format: 'url') # response_format: 'url' or ''b64_json''
+
+    width = 256
+    height = 256
+
+    case size
+    when :medium
+      width = 512
+      height = 512
+    when :large
+      width = 1024
+      height = 1024
+    when :portrait
+      width = 1024
+      height = 1792
+    when :landscape
+      width = 1792
+      height = 1024
+    end
+
     response = @client.images.generate(parameters: {
+      model: @model,
       prompt: prompt,
-      size: "#{size}x#{size}",
+      size: "#{width}x#{height}",
       response_format: response_format
     })
 
@@ -42,7 +67,12 @@ class DallE
   end
 
   def generate_images(prompt, size: 1024, n:2)
-    response = @client.images.generate(parameters: { prompt: prompt, size: "#{size}x#{size}", n: n })
+    response = @client.images.generate(parameters: {
+      model: @model,
+      prompt: prompt,
+      size: "#{size}x#{size}",
+      n: n
+    })
     response['data'].map { |data| data['url'] }
   end
 
@@ -53,12 +83,12 @@ class DallE
   end
 
   def generate_image_valiations(image_path, n: 1)
-    response = @client.images.variations(parameters: { image: image_path, n: 2 })
+    response = @client.images.variations(parameters: { model: @model, image: image_path, n: 2 })
     response.dig('data', 0, 'url')
   end
 
   def edit_image(prompt = "A solid red Ruby on a blue background")
-    response = @client.images.edit(parameters: { prompt: prompt, image: "image.png", mask: "mask.png" })
+    response = @client.images.edit(parameters: { model: @model, prompt: prompt, image: "image.png", mask: "mask.png" })
     # response.dig('data', 0, 'url')
   end
 
