@@ -126,13 +126,20 @@ class Dish < ApplicationRecord
     deep_l = DeepLClient.new
 		english_name = deep_l.to_english(self.name)
     dall_e = DallE.new
+
 		prompt = <<-EOS
 			#{english_name},
+			looking natural,
+			photo realistic,
+			natural lighting,
+			soft shadows,
+			reduced glossiness,
+			captured in extreme close-up,
+			25-degree elevated angle,
+			white background,
 			on a white porcelain plate,
-			looking fresh and natural,
-			30-degree elevated angle,
-			Evenly Diffused Natural Light Without Shadows,
 		EOS
+
     response = dall_e.generate_image(prompt, size: :landscape, response_format: response_format)
 		response
 	end
