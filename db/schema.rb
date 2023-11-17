@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_05_081542) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_17_121510) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,6 +64,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_05_081542) do
     t.datetime "updated_at", null: false
     t.index ["dish_id"], name: "index_recipes_on_dish_id"
     t.index ["foodstuff_id"], name: "index_recipes_on_foodstuff_id"
+  end
+
+  create_table "staffs", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.boolean "approved"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_staffs_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_staffs_on_reset_password_token", unique: true
   end
 
   add_foreign_key "dish_articles", "dishes"

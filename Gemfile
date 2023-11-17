@@ -25,6 +25,7 @@ gem 'redcarpet'
 gem 'mini_magick'
 gem "ruby-openai"
 gem 'deepl-rb', require: 'deepl'
+gem 'devise'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"

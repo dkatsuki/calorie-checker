@@ -1,4 +1,12 @@
 class Admin::ApplicationController < ApplicationController
+  before_action :authenticate_staff!
+
+  def authenticate_staff!
+    unless current_staff.present? && current_staff.approved?
+      redirect_to new_staff_session_path, alert: 'Your account has not been approved by the admin yet.'
+    end
+  end
+
   def new
     @record = self.model.new
   end

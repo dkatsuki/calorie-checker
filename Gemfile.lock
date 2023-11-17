@@ -1433,6 +1433,7 @@ GEM
     aws-sigv2 (1.1.0)
     aws-sigv4 (1.5.2)
       aws-eventstream (~> 1, >= 1.0.2)
+    bcrypt (3.1.19)
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
@@ -1455,6 +1456,12 @@ GEM
       irb (>= 1.5.0)
       reline (>= 0.3.1)
     deepl-rb (2.5.3)
+    devise (4.9.3)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0)
+      responders
+      warden (~> 1.2.3)
     erubi (1.12.0)
     ffi (1.15.5)
     foreman (0.87.2)
@@ -1510,6 +1517,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.14.1-x86_64-darwin)
       racc (~> 1.4)
+    orm_adapter (0.5.0)
     pg (1.4.5)
     pry (0.14.2)
       coderay (~> 1.1)
@@ -1559,6 +1567,9 @@ GEM
     regexp_parser (2.7.0)
     reline (0.3.2)
       io-console (~> 0.5)
+    responders (3.1.1)
+      actionpack (>= 5.2)
+      railties (>= 5.2)
     rexml (3.2.5)
     ruby-openai (3.5.0)
       httparty (>= 0.18.1)
@@ -1602,6 +1613,8 @@ GEM
     unicorn (6.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
+    warden (1.2.9)
+      rack (>= 2.0.9)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -1629,6 +1642,7 @@ DEPENDENCIES
   capybara
   debug
   deepl-rb
+  devise
   foreman
   html2slim
   importmap-rails
