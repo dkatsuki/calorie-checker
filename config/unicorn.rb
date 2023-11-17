@@ -1,7 +1,7 @@
 rails_root = File.expand_path('../../', __FILE__)
 
 worker_processes 8
-timeout 40
+timeout 300
 preload_app true
 
 listen 			"#{rails_root}/tmp/unicorn.sock"
