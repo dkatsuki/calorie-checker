@@ -83,6 +83,6 @@ test:
 production:
   <<: *default
   database: calorie_checker_production
-  user: postgres
+  username: postgres
   port: <%= Rails.application.credentials.config[:db][:port] %>
   password: <%= Rails.application.credentials.config[:db][:password] %>
