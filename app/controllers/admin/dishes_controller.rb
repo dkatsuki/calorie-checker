@@ -20,5 +20,8 @@ class Admin::DishesController < Admin::ApplicationController
         *self.model.attribute_names,
         recipes_attributes: self.model.get_association_class(:recipes).attribute_names
       ])
+
+      result[:is_open] = result[:is_open] == '1' ? true : false
+      result
     end
 end
