@@ -72,59 +72,43 @@ class DishArticle < ApplicationRecord
     [
       {
         tag_name: 'h2',
-        text: "#{dish.name}のカロリーと糖質"
-      },
-      {
-        tag_name: 'h3',
         text: "#{dish.name}#{dish.unit}あたりのカロリーとPFCバランスについて"
       },
       {
-        tag_name: 'h3',
+        tag_name: 'h2',
         text: "#{dish.name}と他の類似食材との比較"
       },
       {
         tag_name: 'h2',
-        text: "#{dish.name}の栄養成分と効能"
-      },
-      {
-        tag_name: 'h3',
         text: "主な栄養素と美容効果など"
       },
       {
-        tag_name: 'h3',
+        tag_name: 'h2',
         text: "その他の栄養素"
       },
       {
         tag_name: 'h2',
-        text: "ダイエットにおすすめの#{dish.name}の食べ方・調理方法"
+        text: "相性の良い食材"
       },
       {
-        tag_name: 'h3',
+        tag_name: 'h2',
         text: "低カロリーな調理方法"
       },
       {
-        tag_name: 'h3',
+        tag_name: 'h2',
         text: "カロリーを抑えた#{dish.name}のレシピ"
       },
       {
         tag_name: 'h2',
-        text: "#{dish.name}の注意点"
-      },
-      {
-        tag_name: 'h3',
         text: "どれくらい保存できるか、賞味期限は？"
       },
       {
-        tag_name: 'h3',
+        tag_name: 'h2',
         text: "特有の注意事項（アレルギー、成分など）"
       },
       {
-        tag_name: 'h3',
-        text: "調理における注意点"
-      },
-      {
         tag_name: 'h2',
-        text: "まとめ"
+        text: "調理における注意点"
       },
     ]
   end
@@ -204,7 +188,7 @@ class DishArticle < ApplicationRecord
       ・chat gptで出力したと判定されにくい様な文章にする事
       ・見出しに使われている文言はそのまま本文で使わない事
       ・具体例や客観的なデータや統計データなど信頼できる機関が出しているデータがある場合はそれを表示してください
-      ・マークダウンテキスト形式で書くこと、ただし、見出しはh2から使用すること
+      ・マークダウンテキスト形式で書くこと、ただし、見出しはh1を使わずにh2から使用すること
 
       # 目次
       #{self.get_table_of_contents_text}
