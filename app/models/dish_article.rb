@@ -115,7 +115,7 @@ class DishArticle < ApplicationRecord
 
   def get_table_of_contents_text
     self.get_default_headers.inject('') do |result, current|
-      if current[:tag_name] == 'h3'
+      if current[:tag_name] == 'h2'
         result + "#{current[:text]}\n"
       else
         result
