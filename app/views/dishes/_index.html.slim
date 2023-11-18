@@ -141,7 +141,7 @@ div.dishes_index
         = f.select "sort[order]", {'高い順' => :desc, '低い順' => :asc}, {selected: params&.[](:sort)&.[](:order)}
   div.records_container
     - @records.each do |record|
-      a.dish_thumbnail_box href="/dishes/#{record.id}" target="_blank"
+      a.dish_thumbnail_box href="/dishes/#{record.id}"
         div.thumbnail_image_box
           = image_tag record.image_source, alt: record.name
           = image_tag 'arrow-sircled-button.svg', alt: 'button'
