@@ -76,15 +76,15 @@ class DishArticle < ApplicationRecord
       },
       {
         tag_name: 'h2',
-        text: "#{dish.name}と他の類似食材との比較"
-      },
-      {
-        tag_name: 'h2',
         text: "主な栄養素と美容効果など"
       },
       {
         tag_name: 'h2',
         text: "その他の栄養素"
+      },
+      {
+        tag_name: 'h2',
+        text: "#{dish.name}と他の類似食材との比較"
       },
       {
         tag_name: 'h2',
