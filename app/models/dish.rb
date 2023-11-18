@@ -127,13 +127,14 @@ class Dish < ApplicationRecord
 		english_name = deep_l.to_english(self.name)
     dall_e = DallE.new
 
-		dish_or_foodstuff = self.pure_foodstuff? ? 'foodstuff' : 'dish'
+		dish_or_foodstuff = self.pure_foodstuff? ? 'raw ingredients' : 'dish'
 
 		prompt = <<-EOS
 			#{english_name} as a #{dish_or_foodstuff},
 			looking natural,
 			photo realistic,
 			natural lighting,
+			looks delicious,
 			soft shadows,
 			reduced glossiness,
 			captured in extreme close-up,
