@@ -46,6 +46,7 @@ class DishArticle < ApplicationRecord
 
       query
     end
+
   end
 
   def body=(value)
@@ -145,12 +146,9 @@ class DishArticle < ApplicationRecord
 
       # 制約条件:
       ・想定している読者が望んでいるであろう情報を盛り込む事
-      ・対象見出し以外の見出しに関するコンテンツは入れない事
-      ・対象見出しで指定された見出しに対応する記事テキスト以外のテキストは出力しない事
       ・「キロカロリー」という文言を使う場合は「kcal」という表記を使用する事
       ・chat gptで出力したと判定されにくい様な文章にする事
       ・見出しに使われている文言はそのまま本文で使わない事
-      ・具体例や客観的なデータや統計データなど信頼できる機関が出しているデータがある場合はそれを表示してください
       ・マークダウンテキスト形式で書くこと、ただし、見出しはh1を使わずにh2から使用すること
 
       # 目次
@@ -167,10 +165,10 @@ class DishArticle < ApplicationRecord
       @gpt.stash_history
     end
 
-    order_text = self.get_article_prompt
+    prompt = self.get_article_prompt
     deep_l = DeepLClient.new
-    order_text = deep_l.to_english(order_text)
-    response = @gpt.chat(order_text)
+    prompt = deep_l.to_english(prompt)
+    response = @gpt.chat(prompt)
     response = deep_l.to_japanese(response)
     response
   end
