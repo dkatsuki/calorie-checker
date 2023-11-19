@@ -17,12 +17,12 @@ javascript:
   const setGenerateArticleBody = () => {
     const generateArticleBody = (event) => {
       event.preventDefault();
-      const selectBox = document.querySelector("select.dish_select_box");
+      const dish_id = (document.querySelector("select.dish_select_box") || document.querySelector("#dish_article_dish_id")).value
       const callback = (response) => {
         const textarea = document.querySelector(".article_editor textarea");
         textarea.value = response.article_body;
       }
-      window.ajax.post(callback, "/admin/dish_articles/generate_article", {dish_id: selectBox.value});
+      window.ajax.post(callback, "/admin/dish_articles/generate_article_by_parts", {dish_id: dish_id});
     }
     const selectBox = document.querySelector("select.dish_select_box");
     const generateButton = document.querySelector("#generate_article");
