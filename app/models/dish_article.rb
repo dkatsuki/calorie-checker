@@ -123,33 +123,6 @@ class DishArticle < ApplicationRecord
     end
   end
 
-  def get_article_part_order_text(target_header)
-    dish_name = self.dish.name
-    <<-EOS
-      # 命令書:
-      あなたは超一流のプロの記事ライターです。
-      以下の「制約条件」「使用する予定の目次」をもとに記事テキストを出力してください。
-      但し、まずは「対象見出し」の部分の記事テキストのみを出力してください。
-
-      # 対象見出し
-      #{target_header}
-
-      # 制約条件:
-      ・想定している読者が望んでいるであろう情報を盛り込む事
-      ・対象見出し以外の見出しに関するコンテンツは入れない事
-      ・対象見出しで指定された見出しに対応する記事テキスト以外のテキストは出力しない事
-      ・「キロカロリー」という文言を使う場合は「kcal」という表記を使用する事
-      ・chat gptで出力したと判定されにくい様な文章にする事
-      ・見出しに使われている文言はそのまま本文で使わない事
-      ・一つの見出しにつき300文字程度書くこと
-
-      # 目次
-      #{self.get_table_of_contents_text}
-
-      # 出力文:
-    EOS
-  end
-
   def generate_article_part(target_header)
     if @gpt.blank?
       @gpt = ChatGpt.new
