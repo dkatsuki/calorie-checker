@@ -29,7 +29,6 @@ Rails.application.routes.draw do
     resources :dish_articles do
       post :parse_markdown, on: :collection
       post :generate_article, on: :collection, defaults: { format: 'json' }
-      post :generate_article_by_parts, on: :collection, defaults: { format: 'json' }
     end
     resources :recipes
   end

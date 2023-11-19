@@ -22,7 +22,7 @@ javascript:
         const textarea = document.querySelector(".article_editor textarea");
         textarea.value = response.article_body;
       }
-      window.ajax.post(callback, "/admin/dish_articles/generate_article_by_parts", {dish_id: dish_id});
+      window.ajax.post(callback, "/admin/dish_articles/generate_article", {dish_id: dish_id});
     }
     const selectBox = document.querySelector("select.dish_select_box");
     const generateButton = document.querySelector("#generate_article");

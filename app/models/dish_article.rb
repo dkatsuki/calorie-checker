@@ -162,16 +162,6 @@ class DishArticle < ApplicationRecord
     response
   end
 
-  def generate_article_by_parts
-    target_header_text_list = self.get_default_headers.map do |header_data|
-      header_data[:tag_name] == 'h2' ? header_data[:text] : nil
-    end.compact
-
-    target_header_text_list.inject('') do |result, target_header_text|
-      result + "#{self.generate_article_part(target_header_text)}\n\n"
-    end
-  end
-
   def get_article_order_text
     dish_name = self.dish.name
     <<-EOS
