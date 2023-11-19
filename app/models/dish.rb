@@ -102,10 +102,6 @@ class Dish < ApplicationRecord
 		self.genre == '食材'
 	end
 
-	def pure_dish?
-		self.genre == '料理'
-	end
-
 	def article_title
 		"#{self.name}のカロリーと糖質は？栄養や美容効果、レシピなどを紹介！"
 	end
