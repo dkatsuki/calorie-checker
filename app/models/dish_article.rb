@@ -135,7 +135,7 @@ class DishArticle < ApplicationRecord
     response
   end
 
-  def get_article_order_text
+  def get_article_prompt
     dish_name = self.dish.name
     <<-EOS
       # 命令書:
@@ -167,7 +167,7 @@ class DishArticle < ApplicationRecord
       @gpt.stash_history
     end
 
-    order_text = self.get_article_order_text
+    order_text = self.get_article_prompt
     deep_l = DeepLClient.new
     order_text = deep_l.to_english(order_text)
     response = @gpt.chat(order_text)
