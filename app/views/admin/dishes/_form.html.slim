@@ -76,10 +76,11 @@ div.width_80percent.margin_0_auto
       div
         = f.check_box :is_open, checked: @record.is_open
     div
+      - genres = controller.model.genres.keys
       div
-        = f.label '単位'
+        = f.label 'ジャンル'
       div
-        = f.text_field :unit, value: @record.unit
+        = f.select :genre, genres, {selected: @record.genre || genres.first}
     div
       div
         = f.label 'カロリー ※新規作成の時は空欄で自動計算、更新時は手動で変える'
