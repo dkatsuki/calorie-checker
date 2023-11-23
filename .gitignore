@@ -8,6 +8,7 @@
 /.bundle
 /vendor/
 .DS_Store
+/public/sitemap.xml.gz
 
 # Ignore all logfiles and tempfiles.
 /log/*
