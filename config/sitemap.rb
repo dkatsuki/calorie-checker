@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "http://www.example.com"
+SitemapGenerator::Sitemap.default_host = "https://calorie-checker.com/"
 
 SitemapGenerator::Sitemap.create do
   # '/articles' を追加する
