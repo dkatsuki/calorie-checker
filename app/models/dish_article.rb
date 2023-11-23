@@ -67,77 +67,79 @@ class DishArticle < ApplicationRecord
     false
   end
 
-  def get_default_headers
+  def get_default_headers(english_dish_name = nil, english_dish_unit = nil)
     dish = self.dish
     return false if dish.blank?
     [
       {
         tag_name: 'h2',
-        text: "#{dish.name}#{dish.unit}あたりのカロリーとPFCバランスについて"
+        text: "#{dish.name}#{dish.unit}あたりのカロリーとPFCバランスについて",
+        english_text: "Calories per #{english_dish_unit} of #{english_dish_name} and PFC balance",
       },
       {
         tag_name: 'h2',
-        text: "主な栄養素と美容効果など"
+        text: "主な栄養素と美容効果など",
+        english_text: "Main nutrients and cosmetic effects, etc.",
       },
       {
         tag_name: 'h2',
-        text: "その他の栄養素"
+        text: "その他の栄養素",
+        english_text: "Other Nutrients",
       },
       {
         tag_name: 'h2',
-        text: "#{dish.name}と他の類似食材との比較"
+        text: "#{dish.name}と他の類似食材との比較",
+        english_text: "Comparison of #{english_dish_name} with Other Similar Ingredients",
       },
       {
         tag_name: 'h2',
-        text: "相性の良い食材"
+        text: "相性の良い食材",
+        english_text: "Foods that go well together",
       },
       {
         tag_name: 'h2',
-        text: "低カロリーな調理方法"
+        text: "低カロリーな調理方法",
+        english_text: "Low-calorie cooking methods",
       },
       {
         tag_name: 'h2',
-        text: "カロリーを抑えた#{dish.name}のレシピ"
+        text: "カロリーを抑えた#{dish.name}のレシピ",
+        english_text: "Recipe for #{english_dish_name} with Reduced Calories",
       },
       {
         tag_name: 'h2',
-        text: "どれくらい保存できるか、賞味期限は？"
+        text: "どれくらい保存できるか、賞味期限は？",
+        english_text: "How long can it be stored and what is its shelf life?",
       },
       {
         tag_name: 'h2',
-        text: "特有の注意事項（アレルギー、成分など）"
+        text: "特有の注意事項（アレルギー、成分など）",
+        english_text: "Special precautions (allergies, ingredients, etc.)",
       },
       {
         tag_name: 'h2',
-        text: "調理における注意点"
+        text: "調理における注意点",
+        english_text: "Precautions in Cooking",
       },
     ]
   end
 
   def get_table_of_contents_text
     self.get_default_headers.inject('') do |result, current|
-      if current[:tag_name] == 'h2'
-        result + "#{current[:text]}\n"
-      else
-        result
-      end
+      result + "#{current[:text]}\n"
     end
   end
 
-  def generate_article_part(target_header)
-    if @gpt.blank?
-      @gpt = ChatGpt.new
-    else
-      @gpt.stash_history
+  def get_english_table_of_contents_text
+    deep_l = DeepLClient.new
+    english_dish_name = deep_l.to_english(self.dish.name)
+    english_dish_unit = deep_l.to_english(self.dish.unit)
+    self.get_default_headers(english_dish_name, english_dish_unit).inject('') do |result, current|
+      result + "#{current[:english_text]}\n"
     end
-
-    order_text = self.get_article_part_order_text(target_header)
-    response = @gpt.chat(order_text)
-    response
   end
 
-  def get_article_prompt
-    dish_name = self.dish.name
+  def get_article_japanese_prompt
     <<-EOS
       # 命令書:
       あなたは超一流のプロの記事ライターです。
@@ -146,7 +148,6 @@ class DishArticle < ApplicationRecord
 
       # 制約条件:
       ・想定している読者が望んでいるであろう情報を盛り込む事
-      ・「キロカロリー」という文言を使う場合は「kcal」という表記を使用する事
       ・chat gptで出力したと判定されにくい様な文章にする事
       ・見出しに使われている文言はそのまま本文で使わない事
       ・マークダウンテキスト形式で書くこと、ただし、見出しはh1を使わずにh2から使用すること
@@ -158,6 +159,28 @@ class DishArticle < ApplicationRecord
     EOS
   end
 
+  def get_article_english_prompt
+    deep_l = DeepLClient.new
+    <<-EOS
+      # Instructions:.
+      You are a top-notch professional article writer.
+      Write an article based on the following table of contents.
+      However, please take into account the constraints.
+
+      # Constraints:.
+      Include information that your intended readers will want.
+      If you use the term "kilocalories," please use "kcal" instead.
+      The text should be such that it is difficult to be judged as output by chat gpt.
+      Do not use headlines in the body of the text.
+      Write in markdown text format, but use headings from h2 instead of h1
+
+      # Table of Contents
+      #{self.get_english_table_of_contents_text}
+
+      # Output text:.
+    EOS
+  end
+
   def generate_article
     if @gpt.blank?
       @gpt = ChatGpt.new
@@ -165,9 +188,8 @@ class DishArticle < ApplicationRecord
       @gpt.stash_history
     end
 
-    prompt = self.get_article_prompt
     deep_l = DeepLClient.new
-    prompt = deep_l.to_english(prompt)
+    prompt = self.get_article_english_prompt
     response = @gpt.chat(prompt)
     response = deep_l.to_japanese(response)
     response
